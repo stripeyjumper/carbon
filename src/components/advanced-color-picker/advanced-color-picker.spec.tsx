@@ -8,8 +8,14 @@ import AdvancedColorPicker, {
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../simple-color-picker";
 import guid from "../../__internal__/utils/helpers/guid";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
-import { StyledAdvancedColorPickerPreview } from "./advanced-color-picker.style";
+import {
+  testStyledSystemMargin,
+  assertStyleMatch,
+} from "../../__spec_helper__/test-utils";
+import {
+  StyledAdvancedColorPickerPreview,
+  HiddenColorPickerList,
+} from "./advanced-color-picker.style";
 
 const mockedGuid = "mocked-guid";
 
@@ -38,6 +44,23 @@ const requiredProps = {
   name: "advancedPicker",
   availableColors: demoColors,
   defaultColor,
+};
+
+const MockComponent = () => {
+  const [color, setColor] = useState<string>();
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setColor(e.target.value);
+  }
+
+  return (
+    <AdvancedColorPicker
+      {...requiredProps}
+      selectedColor={color}
+      onChange={handleOnChange}
+      open
+    />
+  );
 };
 
 document.body.appendChild(element);
@@ -81,15 +104,15 @@ describe("AdvancedColorPicker", () => {
       [" ", true],
       ["a", false],
     ];
-    let colorPickerCell: ReactWrapper;
+    let openColorPickerButton: ReactWrapper;
     let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = render({ ...requiredProps });
-      colorPickerCell = wrapper
-        .find('[data-element="color-picker-cell"]')
+      openColorPickerButton = wrapper
+        .find('[data-element="open-color-picker-button"]')
         .first();
-      colorPickerCell.getDOMNode<HTMLButtonElement>().focus();
+      openColorPickerButton.getDOMNode<HTMLButtonElement>().focus();
     });
 
     afterEach(() => {
@@ -101,7 +124,7 @@ describe("AdvancedColorPicker", () => {
       (key, expectedResult) => {
         it(`then dialog's open prop should be set to: ${expectedResult}`, () => {
           act(() => {
-            colorPickerCell.simulate("keydown", { key });
+            openColorPickerButton.simulate("keydown", { key });
           });
           wrapper.update();
           expect(wrapper.find(Dialog).prop("open")).toBe(expectedResult);
@@ -110,7 +133,63 @@ describe("AdvancedColorPicker", () => {
     );
   });
 
-  describe("color picker cell button", () => {
+  describe("color description list", () => {
+    let wrapper: ReactWrapper;
+
+    it("description is correct when no color is selected", () => {
+      wrapper = render({ ...requiredProps });
+      expect(
+        wrapper
+          .find('[data-element="current-color-description"]')
+          .first()
+          .text()
+      ).toBe(`Current color assigned:none`);
+      wrapper.unmount();
+    });
+
+    it.each([
+      [0, "white"],
+      [1, "transparent"],
+      [2, "black"],
+    ])(
+      "description is correct when color is selected",
+      (colorIndex, colorName) => {
+        wrapper = mount(<MockComponent />);
+        jest.runAllTimers();
+        const color = wrapper.find(SimpleColor).at(colorIndex);
+
+        color.find("input").first().getDOMNode<HTMLInputElement>().click();
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find('[data-element="current-color-description"]')
+            .first()
+            .text()
+        ).toBe(`Current color assigned:${colorName}`);
+        wrapper.unmount();
+      }
+    );
+
+    it("description list is accessibly hidden", () => {
+      wrapper = render({ ...requiredProps });
+
+      assertStyleMatch(
+        {
+          border: "0",
+          height: "1px",
+          margin: "-1px",
+          overflow: "hidden",
+          padding: "0",
+          position: "absolute",
+          width: "1px",
+        },
+        wrapper.find(HiddenColorPickerList)
+      );
+    });
+  });
+
+  describe("color picker cell", () => {
     it("should have the color prop set to defaultColor", () => {
       const wrapper = render({ ...requiredProps });
       expect(
@@ -233,22 +312,6 @@ describe("AdvancedColorPicker", () => {
 
   describe("when the component value is controlled, and a color is selected", () => {
     // eslint-disable-next-line react/prop-types
-    const MockComponent = () => {
-      const [color, setColor] = useState<string>();
-
-      function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setColor(e.target.value);
-      }
-
-      return (
-        <AdvancedColorPicker
-          {...requiredProps}
-          selectedColor={color}
-          onChange={handleOnChange}
-          open
-        />
-      );
-    };
     let wrapper: ReactWrapper;
 
     beforeEach(() => {
@@ -313,10 +376,10 @@ describe("AdvancedColorPicker", () => {
 
         beforeEach(() => {
           wrapper = render(extraProps);
-          const colorPickerCell = wrapper
-            .find('[data-element="color-picker-cell"]')
+          const openColorPickerButton = wrapper
+            .find('[data-element="open-color-picker-button"]')
             .first();
-          colorPickerCell.simulate("click");
+          openColorPickerButton.simulate("click");
         });
 
         afterEach(() => {
@@ -339,7 +402,7 @@ describe("AdvancedColorPicker", () => {
     );
   });
 
-  describe("when the color picker cell button is clicked", () => {
+  describe("when the color picker button is clicked", () => {
     const onOpen = jest.fn();
     let wrapper: ReactWrapper;
 
@@ -349,12 +412,12 @@ describe("AdvancedColorPicker", () => {
         ...requiredProps,
         onOpen,
       });
-      const colorPickerCell = wrapper
-        .find('[data-element="color-picker-cell"]')
+      const openColorPickerButton = wrapper
+        .find('[data-element="open-color-picker-button"]')
         .first();
 
       act(() => {
-        colorPickerCell.simulate("click");
+        openColorPickerButton.simulate("click");
       });
     });
 

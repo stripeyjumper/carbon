@@ -11,10 +11,21 @@ import Dialog from "../dialog/dialog.component";
 import StyledIconButton from "../icon-button/icon-button.style";
 import checkerBoardSvg from "../simple-color-picker/simple-color/checker-board.svg";
 import baseTheme from "../../style/themes/base";
+import { Dl } from "../definition-list";
 
 const StyledAdvancedColorPickerWrapper = styled.div`
   ${margin}
-  display: inline-block;
+  display: flex;
+`;
+
+const HiddenColorPickerList = styled(Dl)`
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 `;
 
 StyledAdvancedColorPickerWrapper.defaultProps = {
@@ -85,6 +96,7 @@ const DialogStyle = styled(Dialog)`
 
 export {
   StyledAdvancedColorPickerWrapper,
+  HiddenColorPickerList,
   StyledAdvancedColorPickerCell,
   StyledAdvancedColorPickerPreview,
   DialogStyle,

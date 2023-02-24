@@ -13,6 +13,10 @@ const plPL: Locale = {
   actionPopover: {
     ariaLabel: () => "akcje",
   },
+  advancedColorPicker: {
+    buttonString: () => "zmieniać kolor",
+    currentColorString: () => "aktualny kolor przypisany:",
+  },
   batchSelection: {
     selected: (count) => `${count} wybrano`,
   },

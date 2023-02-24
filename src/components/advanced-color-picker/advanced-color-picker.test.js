@@ -3,7 +3,8 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import {
   simpleColorPicker,
-  advancedColorPickerCell,
+  openAdvancedColorPickerButton,
+  currentColorDescription,
   advancedColorPicker,
   simpleColorPickerInput,
   simpleColorPickerComponent,
@@ -253,7 +254,7 @@ context("Testing AdvancedColorPicker component", () => {
       );
 
       closeIconButton().click();
-      advancedColorPickerCell()
+      openAdvancedColorPickerButton()
         .first()
         .click()
         .then(() => {
@@ -286,6 +287,36 @@ context("Testing AdvancedColorPicker component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Should render a color description list", () => {
+    it("description is correct when no color is selected", () => {
+      CypressMountWithProviders(
+        <AdvancedColorPicker
+          name="advancedColor"
+          availableColors={[{ value: "#FFFFFF", label: "white" }]}
+        />
+      );
+      currentColorDescription().contains("Current color assigned:none");
+    });
+
+    it("description is correct when color is selected", () => {
+      CypressMountWithProviders(<AdvancedColorPickerCustom />);
+      currentColorDescription().contains("Current color assigned:orchid");
+    });
+
+    it("description list is visible in the accessibility tree/DOM but is accessibly hidden", () => {
+      CypressMountWithProviders(<AdvancedColorPickerCustom />);
+      currentColorDescription()
+        .should("be.visible")
+        .and("have.css", "border", "0px none rgba(0, 0, 0, 0.9)")
+        .and("have.css", "height", "1px")
+        .and("have.css", "margin", "-1px")
+        .and("have.css", "overflow", "hidden")
+        .and("have.css", "padding", "0px")
+        .and("have.css", "position", "absolute")
+        .and("have.css", "width", "1px");
     });
   });
 

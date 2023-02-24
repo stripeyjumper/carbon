@@ -9,6 +9,10 @@ interface Locale {
   actionPopover: {
     ariaLabel: () => string;
   };
+  advancedColorPicker: {
+    buttonString: () => string;
+    currentColorString: () => string;
+  };
   batchSelection: {
     selected: (count: number | string) => string;
   };

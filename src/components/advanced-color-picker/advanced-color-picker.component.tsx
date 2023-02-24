@@ -2,13 +2,18 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { MarginProps } from "styled-system";
 import {
   StyledAdvancedColorPickerWrapper,
+  HiddenColorPickerList,
   StyledAdvancedColorPickerCell,
   StyledAdvancedColorPickerPreview,
   DialogStyle,
 } from "./advanced-color-picker.style";
+import Button from "../button";
 import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import guid from "../../__internal__/utils/helpers/guid";
+import useLocale from "../../hooks/__internal__/useLocale";
+import { Dt, Dd } from "../definition-list";
 
 export interface AdvancedColor {
   label: string;
@@ -74,6 +79,7 @@ const AdvancedColorPicker = ({
     setSelectedColorRef,
   ] = useState<HTMLInputElement | null>(null);
 
+  const currentColorName = selectedColorRef?.getAttribute("aria-label");
   const simpleColorPickerData = useRef<{
     gridItemRefs: Array<HTMLInputElement | null>;
   }>(null);
@@ -191,18 +197,34 @@ const AdvancedColorPicker = ({
     [onBlur]
   );
 
+  const selectedColorId = useRef(guid());
+  const l = useLocale();
+
   return (
     <StyledAdvancedColorPickerWrapper
       m="15px auto auto 15px"
       {...filterStyledSystemMarginProps(props)}
     >
-      <StyledAdvancedColorPickerCell
-        data-element="color-picker-cell"
+      <Button
+        data-element="open-color-picker-button"
+        aria-describedby={selectedColorId.current}
+        size="large"
         onClick={handleOnOpen}
         onKeyDown={handleOnKeyDown}
+      >
+        {l.advancedColorPicker.buttonString()}
+      </Button>
+      <StyledAdvancedColorPickerCell
+        data-element="color-picker-cell"
         color={currentColor}
-        tabIndex={0}
       />
+      <HiddenColorPickerList
+        id={selectedColorId.current}
+        data-element="current-color-description"
+      >
+        <Dt>{l.advancedColorPicker.currentColorString()}</Dt>
+        <Dd>{currentColorName || "none"}</Dd>
+      </HiddenColorPickerList>
       <DialogStyle
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
