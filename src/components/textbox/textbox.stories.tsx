@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
+import { within, userEvent } from "@storybook/testing-library";
 
 import Textbox from ".";
 import Box from "../box";
@@ -11,6 +12,14 @@ export const VALIDATIONS = ["error", "warning", "info"] as const;
 
 export const Default: ComponentStory<typeof Textbox> = () => {
   const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return <Textbox label="Textbox" value={state} onChange={setValue} />;
+};
+
+export const TestDefault: ComponentStory<typeof Textbox> = () => {
+  const [state, setState] = useState("");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
@@ -337,4 +346,17 @@ export const ValidationsAsABoolean: ComponentStory<typeof Textbox> = () => {
       ))}
     </Box>
   );
+};
+
+export const TestStory = TestDefault.bind({});
+TestStory.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const TextInput = canvas.getByLabelText("Textbox", {
+    selector: "input",
+  });
+
+  await userEvent.type(TextInput, " This is a textbox", {
+    delay: 100,
+  });
 };

@@ -27,6 +27,7 @@ module.exports = {
     "@storybook/addon-google-analytics",
     "@storybook/addon-links",
     "@storybook/addon-toolbars",
+    "@storybook/addon-interactions", //👈 The addon registered here
   ],
   staticDirs: ["../.assets", "../logo"],
   webpackFinal: async (config, { configType }) => {

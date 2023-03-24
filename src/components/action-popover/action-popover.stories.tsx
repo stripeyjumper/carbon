@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
+import { within, userEvent } from "@storybook/testing-library";
+
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -734,4 +736,62 @@ export const ActionPopoverNestedInDialog: ComponentStory<
       </ActionPopover>{" "}
     </Dialog>
   );
+};
+
+export const TestActionPopoverComponent: ComponentStory<
+  typeof ActionPopover
+> = () => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  const submenuWithIcons = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="graph" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="add" onClick={() => {}}>
+        Sub Menu 2
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="print" disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  return (
+    <div style={{ marginTop: "40px", height: "275px" }}>
+      <Box>
+        <ActionPopover onOpen={() => {}} onClose={() => {}}>
+          <ActionPopoverItem
+            data-testid="custom-element"
+            icon="graph"
+            submenu={submenu}
+            onClick={() => {}}
+          >
+            Business
+          </ActionPopoverItem>
+        </ActionPopover>
+      </Box>
+    </div>
+  );
+};
+
+export const TestStory = TestActionPopoverComponent.bind({});
+TestStory.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const ActionPopoverButton = canvas.getByRole("button", { name: "actions" });
+
+  await userEvent.click(ActionPopoverButton);
+
+  // const SubMenuButton = canvas.getByRole("menuitem", {
+  //   name: "actions",
+  // });
+
+  // await userEvent.hover(canvas.getByTestId("custom-element"));
 };
