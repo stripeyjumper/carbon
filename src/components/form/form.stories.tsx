@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { within, userEvent } from "@storybook/testing-library";
+import { ComponentStory } from "@storybook/react";
+
 import Form from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
@@ -15,7 +18,9 @@ import { Checkbox } from "../checkbox";
 import Hr from "../../components/hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
+import NumeralDate from "../numeral-date";
 import isChromatic from "../../../.storybook/isChromatic";
+import Alert from "../alert";
 
 const isOpenForChromatic = isChromatic();
 
@@ -693,4 +698,135 @@ export const WithCustomFooterPadding = () => {
       </Dialog>
     </>
   );
+};
+
+export const RealisticFormTest: ComponentStory<typeof Form> = () => {
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  const showAlert = alertOpen ? (
+    <Alert
+      onCancel={() => setAlertOpen(false)}
+      title="Form Submitted"
+      disableEscKey={false}
+      subtitle="You form has been submitted successfully"
+      showCloseIcon
+      size="extra-small"
+      open={alertOpen}
+    >
+      Please wait to hear back from us regarding you issue.
+    </Alert>
+  ) : null;
+
+  return (
+    <Box>
+      <Form
+        onSubmit={() => setAlertOpen(true)}
+        leftSideButtons={
+          <Button onClick={() => console.log("cancel")}>Cancel</Button>
+        }
+        saveButton={
+          <Button
+            id="save-button"
+            aria-label="save button"
+            buttonType="primary"
+            type="submit"
+          >
+            Save
+          </Button>
+        }
+        stickyFooter
+      >
+        <Tabs mb={2}>
+          <Tab
+            pl="3px"
+            customLayout={
+              <Box mx="16px" my="10px">
+                Tab1
+              </Box>
+            }
+            tabId="tab1"
+          />
+        </Tabs>
+        <Textbox label="First Name" />
+        <Textbox label="Last Name" />
+        <Textbox label="Email" />
+        <Textbox label="Phone" />
+        <NumeralDate label="Date of Birth" />
+        <Textarea
+          placeholder="Enter text here..."
+          label="What are you looking for from this service?"
+        />
+      </Form>
+      {showAlert}
+    </Box>
+  );
+};
+
+export const TestStory = RealisticFormTest.bind({});
+TestStory.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const FirstName = canvas.getByLabelText("First Name", {
+    selector: "input",
+  });
+  const LastName = canvas.getByLabelText("Last Name", {
+    selector: "input",
+  });
+  const Email = canvas.getByLabelText("Email", {
+    selector: "input",
+  });
+  const Phone = canvas.getByLabelText("Phone", {
+    selector: "input",
+  });
+  const DateOfBirthDD = canvas.getByPlaceholderText("dd", {
+    selector: "input",
+  });
+  const DateOfBirthMM = canvas.getByPlaceholderText("mm", {
+    selector: "input",
+  });
+  const DateOfBirthYYYY = canvas.getByPlaceholderText("yyyy", {
+    selector: "input",
+  });
+  const MoreInfo = canvas.getByPlaceholderText("Enter text here...", {
+    selector: "textarea",
+  });
+  // const SaveButton = canvas.getByText("Save Button");
+
+  await userEvent.type(FirstName, " Jenson", {
+    delay: 250,
+  });
+
+  await userEvent.type(LastName, " Interceptor", {
+    delay: 250,
+  });
+
+  await userEvent.type(Email, " jenson.interceptor@bustedoldcar.co.uk", {
+    delay: 250,
+  });
+
+  await userEvent.type(Phone, " +447834662277", {
+    delay: 250,
+  });
+
+  await userEvent.type(DateOfBirthDD, "01", {
+    delay: 250,
+  });
+
+  await userEvent.type(DateOfBirthMM, "01", {
+    delay: 250,
+  });
+
+  await userEvent.type(DateOfBirthYYYY, "1928", {
+    delay: 250,
+  });
+
+  await userEvent.type(
+    MoreInfo,
+    " The mango got stuck under the brake pedal, Your Honour",
+    {
+      delay: 250,
+    }
+  );
+
+  // await userEvent.click(SaveButton);
 };

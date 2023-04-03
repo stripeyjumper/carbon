@@ -789,6 +789,8 @@ TestStory.play = async ({ canvasElement }) => {
 
   await userEvent.click(ActionPopoverButton);
 
+  await userEvent.hover(canvas.getByDisplayValue("Business"));
+
   // const SubMenuButton = canvas.getByRole("menuitem", {
   //   name: "actions",
   // });
