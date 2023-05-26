@@ -1,25 +1,29 @@
-import React from "react";
-import Form from ".";
-import Button from "../button";
-import { Tab, Tabs } from "../tabs";
+import React, { useState } from "react";
+import { within, userEvent } from "@storybook/testing-library";
+import { ComponentStory } from "@storybook/react";
+
+import Alert from "../alert";
 import Box from "../box";
-import Textbox from "../textbox";
-import Textarea from "../textarea";
-import Fieldset from "../fieldset";
+import Button from "../button";
+import { Checkbox, CheckboxGroup } from "../checkbox";
 import DateInput from "../date";
 import DateRange from "../date-range";
-import { Select, MultiSelect, Option, FilterableSelect } from "../select";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
-import { Checkbox, CheckboxGroup } from "../checkbox";
-import Switch from "../switch";
 import Decimal from "../decimal";
-import Number from "../number";
+import Fieldset from "../fieldset";
+import Form from ".";
 import GroupedCharacter from "../grouped-character";
-import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
-import NumeralDate from "../numeral-date";
 import Hr from "../hr";
 import InlineInputs from "../inline-inputs";
+import Number from "../number";
+import NumeralDate from "../numeral-date";
 import Pager from "../pager";
+import { RadioButton, RadioButtonGroup } from "../radio-button";
+import { Select, MultiSelect, Option, FilterableSelect } from "../select";
+import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
+import Switch from "../switch";
+import { Tab, Tabs } from "../tabs";
+import Textarea from "../textarea";
+import Textbox from "../textbox";
 
 export default {
   title: "Form/Test",
@@ -386,3 +390,139 @@ export const DefaultWithPager = () => (
 );
 
 DefaultWithPager.storyName = "default with pager";
+
+const RealisticFormTest: ComponentStory<typeof Form> = () => {
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  const showAlert = alertOpen ? (
+    <Alert
+      onCancel={() => setAlertOpen(false)}
+      title="Form Submitted"
+      disableEscKey={false}
+      subtitle="You form has been submitted successfully"
+      showCloseIcon
+      size="extra-small"
+      open={alertOpen}
+    >
+      Please wait to hear back from us regarding you issue.
+    </Alert>
+  ) : null;
+
+  return (
+    <Box>
+      <Form
+        onSubmit={() => setAlertOpen(true)}
+        leftSideButtons={
+          <Button onClick={() => console.log("cancel")}>Cancel</Button>
+        }
+        saveButton={
+          <Button
+            id="save-button"
+            aria-label="save button"
+            buttonType="primary"
+            type="submit"
+          >
+            Save
+          </Button>
+        }
+        stickyFooter
+      >
+        <Tabs mb={2}>
+          <Tab
+            pl="3px"
+            customLayout={
+              <Box mx="16px" my="10px">
+                Tab1
+              </Box>
+            }
+            tabId="tab1"
+          />
+        </Tabs>
+        <Textbox label="First Name" />
+        <Textbox label="Last Name" />
+        <Textbox label="Email" />
+        <Textbox label="Phone" />
+        <NumeralDate label="Date of Birth" />
+        <Textarea
+          placeholder="Enter text here..."
+          label="What are you looking for from this service?"
+        />
+      </Form>
+      {showAlert}
+    </Box>
+  );
+};
+
+export const TestStory = RealisticFormTest.bind({});
+TestStory.play = async ({ canvasElement }) => {
+  // dictates how fast the automated typing is
+  const typingSpeed = 100;
+
+  const canvas = within(canvasElement);
+
+  const FirstName = canvas.getByLabelText("First Name", {
+    selector: "input",
+  });
+  const LastName = canvas.getByLabelText("Last Name", {
+    selector: "input",
+  });
+  const Email = canvas.getByLabelText("Email", {
+    selector: "input",
+  });
+  const Phone = canvas.getByLabelText("Phone", {
+    selector: "input",
+  });
+  const DateOfBirthDD = canvas.getByPlaceholderText("dd", {
+    exact: true,
+  });
+  const DateOfBirthMM = canvas.getByPlaceholderText("mm", {
+    exact: true,
+  });
+  const DateOfBirthYYYY = canvas.getByPlaceholderText("yyyy", {
+    exact: true,
+  });
+  const MoreInfo = canvas.getByPlaceholderText("Enter text here...", {
+    exact: true,
+  });
+  // const SaveButton = canvas.getByText("Save Button");
+
+  await userEvent.type(FirstName, " Jenson", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(LastName, " Interceptor", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(Email, " jenson.interceptor@bustedoldcar.co.uk", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(Phone, " +447834662277", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(DateOfBirthDD, "01", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(DateOfBirthMM, "01", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(DateOfBirthYYYY, " 1966", {
+    delay: typingSpeed,
+  });
+
+  await userEvent.type(
+    MoreInfo,
+    " The mango got stuck under the brake pedal, Your Honour",
+    {
+      delay: typingSpeed,
+    }
+  );
+
+  // await userEvent.click(SaveButton);
+};
+
+TestStory.storyName = "Storybook Actions Test";
