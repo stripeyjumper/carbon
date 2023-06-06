@@ -1,0 +1,85 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import * as stories from "./checkbox-validations-test.stories";
+
+import { Checkbox, CheckboxGroup } from ".";
+
+<Meta
+  title="Checkbox/Test/Validations"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Checkbox validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+## Old validation design
+
+### As string applied to single Checkbox
+
+<Canvas>
+  <Story
+    name="single checkbox - string validation (old design)"
+    story={stories.StringValidation}
+  />
+</Canvas>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component:
+
+<Canvas>
+  <Story
+    name="single checkbox - with tooltipPosition overriden - string validation (old design)"
+    story={stories.StringValidationWithTooltipPosition}
+  />
+</Canvas>
+
+### As boolean applied to single Checkbox
+
+<Canvas>
+  <Story
+    name="single checkbox - boolean validation (old design)"
+    story={stories.BooleanValidation}
+  />
+</Canvas>
+
+### As string applied to CheckboxGroup
+
+<Canvas>
+  <Story
+    name="group checkbox - string validation (old design)"
+    story={stories.CheckboxGroupStringValidation}
+  />
+</Canvas>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component:
+
+<Canvas>
+  <Story
+    name="group checkbox - with tooltipPosition overriden - string validation (old design)"
+    story={stories.CheckboxGroupStringValidationTooltipPosition}
+  />
+</Canvas>
+
+### As boolean applied to CheckboxGroup
+
+<Canvas>
+  <Story
+    name="group checkbox - boolean validation (old design)"
+    story={stories.CheckboxGroupBooleanValidation}
+  />
+</Canvas>
+
+## Other props
+
+### Required field
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas>
+  <Story name="required field" story={stories.Required} />
+</Canvas>
