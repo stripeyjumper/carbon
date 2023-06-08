@@ -1,12 +1,11 @@
-/* eslint-disable no-shadow, jest/valid-expect, no-unused-expressions */
+/* eslint-disable no-shadow, jest/valid-expect */
 import React from "react";
-import { CheckboxGroupProps } from "components/checkbox";
 import Box from "../../../src/components/box";
-import { Checkbox, CheckboxProps } from "../../../src/components/checkbox";
-import {
-  CheckboxComponent,
-  CheckboxGroupComponent,
-} from "../../../src/components/checkbox/checkbox-test.stories";
+import { Checkbox, CheckboxGroup } from "../../../src/components/checkbox";
+import type {
+  CheckboxProps,
+  CheckboxGroupProps,
+} from "../../../src/components/checkbox";
 
 import * as stories from "../../../src/components/checkbox/checkbox.stories";
 import {
@@ -40,6 +39,56 @@ import {
 } from "../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
+const CheckboxComponent = (props: CheckboxProps) => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+      }}
+    >
+      <Checkbox
+        label="Checkbox 1"
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+        {...props}
+      />
+    </div>
+  );
+};
+
+const CheckboxGroupComponent = ({
+  children,
+  ...rest
+}: Partial<CheckboxGroupProps>) => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <CheckboxGroup legend="Test CheckboxGroup Label" {...rest}>
+        {children || (
+          <>
+            {["One", "Two", "Three"].map((label) => (
+              <Checkbox
+                label={label}
+                id={`checkbox-group-${label}`}
+                key={`checkbox-group-${label}`}
+                name={`checkbox-group-${label}`}
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              />
+            ))}
+          </>
+        )}
+      </CheckboxGroup>
+    </div>
+  );
+};
 
 context("Testing Checkbox component", () => {
   describe("should render Checkbox component", () => {
@@ -156,7 +205,7 @@ context("Testing Checkbox component", () => {
   it.each([
     [SIZE.SMALL, 16],
     [SIZE.LARGE, 24],
-  ])(
+  ] as [CheckboxProps["size"], number][])(
     "should render Checkbox component with size set to %s",
     (size, sizeInPx) => {
       CypressMountWithProviders(<CheckboxComponent size={size} />);
@@ -170,7 +219,7 @@ context("Testing Checkbox component", () => {
   it.each([
     [1, "8px"],
     [2, "16px"],
-  ])(
+  ] as [CheckboxProps["labelSpacing"], string][])(
     "should render Checkbox component with %s as labelSpacing",
     (spacing, padding) => {
       CypressMountWithProviders(<CheckboxComponent labelSpacing={spacing} />);
@@ -180,10 +229,10 @@ context("Testing Checkbox component", () => {
   );
 
   it.each([
-    ["10", "90", 135, 1229],
-    ["30", "70", 409, 956],
-    ["80", "20", 1092, 273],
-  ])(
+    [10, 90, 135, 1229],
+    [30, 70, 409, 956],
+    [80, 20, 1092, 273],
+  ] as [CheckboxProps["labelWidth"], CheckboxProps["inputWidth"], number, number][])(
     "should render Checkbox using %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
     (labelWidth, inputWidth, labelRatio, inputRatio) => {
       CypressMountWithProviders(
@@ -275,7 +324,12 @@ context("Testing Checkbox component", () => {
     }
   );
 
-  it.each(["bottom", "left", "right", "top"])(
+  it.each([
+    "bottom",
+    "left",
+    "right",
+    "top",
+  ] as CheckboxProps["tooltipPosition"][])(
     "should render CheckboxComponent component with tooltip positioned to the %s",
     (position) => {
       CypressMountWithProviders(
@@ -302,61 +356,45 @@ context("Testing Checkbox component", () => {
 
   describe("should render CheckBox component and check events", () => {
     it("should call onBlur callback when a blur event is triggered", () => {
-      const callback: CheckboxProps["onBlur"] = cy.stub();
+      const callback: CheckboxProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(<CheckboxComponent onBlur={callback} />);
 
-      checkboxRole()
-        .focus()
-        .blur()
-        .then(() => {
-          expect(callback).to.have.been.calledOnce;
-        });
+      checkboxRole().focus().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onChange callback when a check event is triggered", () => {
-      const callback: CheckboxProps["onChange"] = cy.stub();
+      const callback: CheckboxProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(<CheckboxComponent onChange={callback} />);
 
-      checkboxRole()
-        .check()
-        .then(() => {
-          expect(callback).to.have.been.calledOnce;
-        });
+      checkboxRole().check();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onChange callback when an uncheck event is triggered", () => {
-      const callback: CheckboxProps["onChange"] = cy.stub();
+      const callback: CheckboxProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
         <CheckboxComponent checked onChange={callback} />
       );
 
-      checkboxRole()
-        .uncheck()
-        .then(() => {
-          expect(callback).to.have.been.calledOnce;
-        });
+      checkboxRole().uncheck();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
-      const callback: CheckboxProps["onFocus"] = cy.stub();
+      const callback: CheckboxProps["onFocus"] = cy.stub().as("onFocus");
       CypressMountWithProviders(<CheckboxComponent onFocus={callback} />);
 
-      checkboxRole()
-        .focus()
-        .then(() => {
-          expect(callback).to.have.been.calledOnce;
-        });
+      checkboxRole().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onClick callback when a click event is triggered", () => {
-      const callback: CheckboxProps["onClick"] = cy.stub();
+      const callback: CheckboxProps["onClick"] = cy.stub().as("onClick");
       CypressMountWithProviders(<CheckboxComponent onClick={callback} />);
 
-      checkboxRole()
-        .click()
-        .then(() => {
-          expect(callback).to.have.been.calledOnce;
-        });
+      checkboxRole().click();
+      cy.get("@onClick").should("have.been.calledOnce");
     });
 
     describe("Testing CheckboxGroup component", () => {
@@ -583,7 +621,7 @@ context("Testing Checkbox component", () => {
       cy.checkAccessibility();
     });
 
-    it.each([1, 2])(
+    it.each([1, 2] as CheckboxProps["labelSpacing"][])(
       "should pass accessibility tests for Checkbox component with %s as labelSpacing",
       (spacing) => {
         CypressMountWithProviders(<CheckboxComponent labelSpacing={spacing} />);
@@ -606,7 +644,12 @@ context("Testing Checkbox component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["bottom", "left", "right", "top"])(
+    it.each([
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ] as CheckboxProps["tooltipPosition"][])(
       "should render CheckboxComponent component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -738,7 +781,7 @@ context("Testing Checkbox component", () => {
     );
   });
 
-  it.each(["small", "large"])(
+  it.each(["small", "large"] as CheckboxProps["size"][])(
     "should render with the expected border radius styling when size is %s",
     (size) => {
       CypressMountWithProviders(<CheckboxComponent size={size} />);
