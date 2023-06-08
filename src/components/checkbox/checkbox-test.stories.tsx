@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
-
+import React from "react";
+import { StoryObj } from "@storybook/react";
 import { Checkbox } from ".";
 import type { CheckboxProps } from ".";
+import CarbonProvider from "../carbon-provider";
+import type { CarbonProviderProps } from "../carbon-provider";
 
 export default {
   title: "Checkbox/Test",
@@ -12,19 +13,20 @@ export default {
     chromatic: {
       disableSnapshot: false,
     },
+    controls: {
+      exclude: ["inputRef", "data-component"],
+    },
   },
   argTypes: {
-    labelSpacing: {
-      options: [1, 2],
+    adaptiveSpacingBreakpoint: {
       control: {
-        type: "select",
+        type: "number",
+        min: 0,
+        step: 1,
       },
     },
-    size: {
-      options: ["small", "large"],
-      control: {
-        type: "select",
-      },
+    fieldHelp: {
+      control: "text",
     },
     inputWidth: {
       control: {
@@ -34,6 +36,12 @@ export default {
         step: 1,
       },
     },
+    label: {
+      control: "text",
+    },
+    labelHelp: {
+      control: "text",
+    },
     labelWidth: {
       control: {
         type: "range",
@@ -42,57 +50,45 @@ export default {
         step: 1,
       },
     },
-    adaptiveSpacingBreakpoint: {
-      control: {
-        type: "number",
-      },
+    error: {
+      options: ["Message", true, false],
+    },
+    warning: {
+      options: ["Message", true, false],
+    },
+    info: {
+      options: ["Message", true, false],
     },
   },
 };
 
-export const Default = ({
-  label,
-  fieldHelp,
-  labelHelp,
-  ...args
-}: CheckboxProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = event.target;
-    setIsChecked(checked);
-    action("change")(`checked: ${checked}`);
-  };
-  return (
-    <Checkbox
-      onChange={handleChange}
-      checked={isChecked}
-      onBlur={action("onBlur")}
-      label={label}
-      fieldHelp={fieldHelp}
-      labelHelp={labelHelp}
-      helpAriaLabel={labelHelp as string}
-      {...args}
-    />
-  );
-};
-
-Default.storyName = "default";
-
-Default.args = {
-  key: "",
-  label: "Example Checkbox",
-  autoFocus: false,
-  disabled: false,
-  fieldHelp: "This text provides help for the input.",
-  fieldHelpInline: false,
-  reverse: false,
-  labelHelp: "This text provides more information for the label.",
-  inputWidth: 0,
-  labelWidth: 0,
-  labelSpacing: 1,
-  size: "small",
-  value: "",
-  ml: "0",
-  adaptiveSpacingBreakpoint: undefined,
-  required: false,
+type Story = StoryObj<
+  CheckboxProps & Pick<CarbonProviderProps, "validationRedesignOptIn">
+>;
+export const Default: Story = {
+  storyName: "default",
+  // eslint-disable-next-line react/display-name, react/prop-types
+  render: ({ validationRedesignOptIn, ...args }) => (
+    <CarbonProvider validationRedesignOptIn={validationRedesignOptIn}>
+      <Checkbox {...args} />
+    </CarbonProvider>
+  ),
+  args: {
+    validationRedesignOptIn: true,
+    autoFocus: false,
+    disabled: false,
+    error: undefined,
+    fieldHelp: "This text provides help for the input.",
+    fieldHelpInline: false,
+    info: undefined,
+    inputWidth: 0,
+    label: "Example Checkbox",
+    labelHelp: "This text provides more information for the label.",
+    labelSpacing: 1,
+    labelWidth: 0,
+    required: false,
+    reverse: false,
+    size: "small",
+    warning: undefined,
+  },
 };

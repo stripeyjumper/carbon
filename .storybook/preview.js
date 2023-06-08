@@ -77,6 +77,10 @@ export const parameters = {
   chromatic: { disableSnapshot: false },
   viewport: { viewports: customViewports },
   actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: {
+    expanded: true,
+    sort: "requiredFirst",
+  },
   viewMode: process.env.STORYBOOK_VIEW_MODE,
 };
 
