@@ -91,6 +91,8 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** Flag to configure component as optional in Form */
+  isOptional?: boolean;
 }
 
 export const SimpleSelect = React.forwardRef(
@@ -129,6 +131,7 @@ export const SimpleSelect = React.forwardRef(
       inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
+      isOptional,
       ...props
     }: SimpleSelectProps,
     ref

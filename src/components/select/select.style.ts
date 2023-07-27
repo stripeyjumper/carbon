@@ -12,6 +12,7 @@ export interface StyledSelectProps
   hasTextCursor?: boolean;
   isOpen: boolean;
   size?: string;
+  isOptional?: boolean;
 }
 
 const StyledSelect = styled.div<StyledSelectProps>`
