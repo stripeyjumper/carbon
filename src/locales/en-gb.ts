@@ -89,6 +89,9 @@ const enGB: Locale = {
   loader: {
     loading: () => "Loading",
   },
+  menuFullscreen: {
+    ariaLabels: { closeButton: () => "Close" },
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },
