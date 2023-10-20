@@ -1,10 +1,9 @@
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { ArgTypes } from "@storybook/blocks";
 import { Breadcrumbs, Crumb } from "./index";
-import * as stories from "./breadcrumbs.stories.tsx";
-import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import * as BreadcrumbsStories from "./breadcrumbs.stories.tsx";
 
-<Meta title="Breadcrumbs" parameters={{ info: { disable: true } }} />
+<Meta title="Breadcrumbs" parameters={{ info: { disable: true } }} of={BreadcrumbsStories} />
 
 # Breadcrumbs
 
@@ -36,30 +35,26 @@ import { Breadcrumbs, Crumb } from "carbon-react/lib/components/breadcrumbs";
 
 ### Breadcrumbs
 
-<Canvas>
-  <Story name="default" story={stories.DefaultBreadcrumbs} />
-</Canvas>
+<Canvas name="default" of={BreadcrumbsStories.Default} />
 
 ## Props
 
 ### Breadcrumbs
 
-<StyledSystemProps
-  of={Breadcrumbs}
-  spacing
-  noHeader
-/>
+<ArgTypes
+   of={BreadcrumbsStories}
+ />
 
 ### Crumb
 
-<ArgsTable of={Crumb} />
+<ArgTypes of={Crumb} />
 
 ## Translation keys
 
 The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
-<TranslationKeysTable
+{/*<TranslationKeysTable
   translationData={[
     {
       name: "breadcrumbs.ariaLabel",
@@ -68,4 +63,4 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
 ]}
-/>
+/> */}

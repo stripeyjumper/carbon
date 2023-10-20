@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-import * as stories from "./alert.stories";
-import Alert from ".";
+import { ArgTypes } from "@storybook/blocks";
+import { Meta, Canvas } from "@storybook/addon-docs";
+import * as AlertStories from "./alert.stories";
 
 <Meta
   title="Alert"
@@ -9,6 +9,7 @@ import Alert from ".";
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },
   }}
+  of={AlertStories}
 />
 
 # Alert
@@ -39,12 +40,10 @@ import Alert from "carbon-react/lib/components/alert";
 
 ### Default
 
-<Canvas>
-  <Story name="default" story={stories.DefaultAlert} />
-</Canvas>
+<Canvas name="default" of={AlertStories.Default} />
 
 ## Props
 
 ### Alert
 
-<ArgsTable of={Alert} />
+<ArgTypes of={AlertStories} />

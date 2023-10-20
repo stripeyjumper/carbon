@@ -1,44 +1,64 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Badge from ".";
 import Button from "../button";
 import Box from "../box";
 
-export const Default: ComponentStory<typeof Badge> = () => (
-  <Box margin="40px">
-    <Badge counter={9} onClick={() => {}}>
-      <Button mr={0} buttonType="tertiary">
-        Filter
-      </Button>
-    </Badge>
-  </Box>
-);
+const meta: Meta<typeof Badge> = {
+  title: "Badge",
+  component: Badge,
+};
 
-export const WithThreeDigits: ComponentStory<typeof Badge> = () => (
-  <Box margin="40px">
-    <Badge counter={130} onClick={() => {}}>
-      <Button mr={0} buttonType="tertiary">
-        Filter
-      </Button>
-    </Badge>
-  </Box>
-);
+export default meta;
+type Story = StoryObj<typeof Badge>;
 
-export const WithCounterZero: ComponentStory<typeof Badge> = () => (
-  <Box margin="40px">
-    <Badge counter={0} onClick={() => {}}>
-      <Button buttonType="tertiary">Filter</Button>
-    </Badge>
-  </Box>
-);
+export const Default: Story = () => {
+  return (
+    <Box margin="40px">
+      <Badge counter={9} onClick={() => {}}>
+        <Button mr={0} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </Box>
+  );
+};
+Default.storyName = "Default";
 
-export const DisplayOnly: ComponentStory<typeof Badge> = () => (
-  <Box margin="40px">
-    <Badge counter={9} aria-label="The counter is currently displaying 9">
-      <Button mr={0} buttonType="tertiary">
-        Filter
-      </Button>
-    </Badge>
-  </Box>
-);
+export const WithThreeDigits: Story = () => {
+  return (
+    <Box margin="40px">
+      <Badge counter={130} onClick={() => {}}>
+        <Button mr={0} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </Box>
+  );
+};
+WithThreeDigits.storyName = "With Three Digits";
+
+export const WithCounterZero: Story = () => {
+  return (
+    <Box margin="40px">
+      <Badge counter={0} onClick={() => {}}>
+        <Button buttonType="tertiary">Filter</Button>
+      </Badge>
+    </Box>
+  );
+};
+WithCounterZero.storyName = "With Counter Zero";
+
+export const DisplayOnly: Story = () => {
+  return (
+    <Box margin="40px">
+      <Badge counter={9} aria-label="The counter is currently displaying 9">
+        <Button mr={0} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </Box>
+  );
+};
+DisplayOnly.storyName = "Display Only";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
 import { Checkbox, CheckboxGroup } from ".";
 
-export const Default: ComponentStory<typeof Checkbox> = () => {
+export const Default: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ export const Default: ComponentStory<typeof Checkbox> = () => {
   );
 };
 
-export const Sizes: ComponentStory<typeof Checkbox> = () => (
+export const Sizes: Story = () => (
   <>
     <Checkbox
       label="Small"
@@ -32,15 +32,15 @@ export const Sizes: ComponentStory<typeof Checkbox> = () => (
   </>
 );
 
-export const Disabled: ComponentStory<typeof Checkbox> = () => (
+export const Disabled: Story = () => (
   <Checkbox disabled label="Disabled checkbox" name="checkbox-disabled" />
 );
 
-export const Reversed: ComponentStory<typeof Checkbox> = () => (
+export const Reversed: Story = () => (
   <Checkbox label="Reversed checkbox" name="checkbox-reverse" reverse />
 );
 
-export const WithFieldHelp: ComponentStory<typeof Checkbox> = () => (
+export const WithFieldHelp: Story = () => (
   <>
     <Checkbox
       fieldHelp="This text provides help for the input."
@@ -58,7 +58,7 @@ export const WithFieldHelp: ComponentStory<typeof Checkbox> = () => (
   </>
 );
 
-export const WithLabelHelp: ComponentStory<typeof Checkbox> = () => (
+export const WithLabelHelp: Story = () => (
   <Checkbox
     helpAriaLabel="This text provides more information for the label."
     label="With labelHelp"
@@ -67,7 +67,7 @@ export const WithLabelHelp: ComponentStory<typeof Checkbox> = () => (
   />
 );
 
-export const WithCustomLabelWidth: ComponentStory<typeof Checkbox> = () => (
+export const WithCustomLabelWidth: Story = () => (
   <Checkbox
     label="With custom labelWidth and label aligned to right"
     labelWidth={100}
@@ -76,7 +76,7 @@ export const WithCustomLabelWidth: ComponentStory<typeof Checkbox> = () => (
   />
 );
 
-export const CheckboxGroupStory: ComponentStory<typeof Checkbox> = () => (
+export const CheckboxGroupStory: Story = () => (
   <CheckboxGroup legend="Checkbox Group">
     {["One", "Two", "Three"].map((label) => (
       <Checkbox

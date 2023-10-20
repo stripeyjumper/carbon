@@ -13,14 +13,7 @@ import {
 
 const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
-  includeStories: ["DefaultStory", "InFullScreenDialogStory"],
-  title: "Anchor Navigation/Test",
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
+  title: "Anchor Navigation",
 };
 
 export default meta;
@@ -87,7 +80,7 @@ export const DefaultStory: Story = () => {
     </AnchorNavigation>
   );
 };
-DefaultStory.storyName = "default";
+DefaultStory.storyName = "Default";
 
 export const InFullScreenDialogStory: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -142,47 +135,4 @@ export const InFullScreenDialogStory: Story = () => {
     </>
   );
 };
-InFullScreenDialogStory.storyName = "in full screen dialog";
-
-export const AnchorNavigationComponent = () => {
-  const ref1 = useRef<HTMLDivElement>(null);
-  const ref2 = useRef<HTMLDivElement>(null);
-  const ref3 = useRef<HTMLDivElement>(null);
-  const ref4 = useRef<HTMLDivElement>(null);
-  const ref5 = useRef<HTMLDivElement>(null);
-  return (
-    <AnchorNavigation
-      stickyNavigation={
-        <>
-          <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref4}>
-            Navigation item with very long label
-          </AnchorNavigationItem>
-          <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-        </>
-      }
-    >
-      <div ref={ref1}>
-        <Content title="First section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref2}>
-        <Content title="Second section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref3}>
-        <Content noTextbox title="Third section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref4}>
-        <Content title="Fourth section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref5}>
-        <Content title="Fifth section" />
-      </div>
-    </AnchorNavigation>
-  );
-};
+InFullScreenDialogStory.storyName = "In Full Screen Dialog";

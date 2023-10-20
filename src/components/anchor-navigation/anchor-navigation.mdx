@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { ArgTypes } from "@storybook/blocks";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 
 import {
   AnchorNavigation,
@@ -8,10 +9,7 @@ import {
 } from ".";
 import Textbox from "../textbox";
 
-import {
-  DefaultStory,
-  InFullScreenDialogStory,
-} from "./anchor-navigation-test.stories.tsx";
+import * as AnchorNavigationStories from "./anchor-navigation.stories";
 
 <Meta
   title="Anchor Navigation"
@@ -19,6 +17,7 @@ import {
     info: { disable: true },
     chromatic: { disableSnapshot: true },
   }}
+  of={AnchorNavigationStories}
 />
 
 # Anchor Navigation
@@ -104,22 +103,20 @@ const MyComponent = () => (
 
 `AnchorNavigation` can be placed anywhere on the page to help with navigating long scrollable sections.
 
-<Story name="default">{DefaultStory.bind({})}</Story>
+<Canvas name="default" of={AnchorNavigationStories.DefaultStory} />
 
 ### In DialogFullScreen
 
 `AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
 
-<Canvas>
-  <Story name="in full screen dialog">{InFullScreenDialogStory.bind({})}</Story>
-</Canvas>
+<Canvas name="in full screen dialog" of={AnchorNavigationStories.InFullScreenDialogStory} />
 
 ## Props:
 
 ### AnchorNavigation
 
-<ArgsTable of={AnchorNavigation} />
+<ArgTypes of={AnchorNavigationStories} />
 
 ### AnchorNavigationItem
 
-<ArgsTable of={AnchorNavigationItem} />
+<ArgTypes of={AnchorNavigationItem} />

@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-import DeprecationWarning from "../../../.storybook/docs-helpers/components/deprecation-warning"
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs";
 
-import { Carousel, Slide } from ".";
-import * as stories from "./carousel.stories";
+import * as SlideStories from "./slide/slide.stories";
+import * as CarouselStories from "./carousel.stories";
 
 <Meta title="Carousel" parameters={{ info: { disable: true } }} />
 
@@ -39,28 +37,22 @@ import { Carousel, Slide } from "carbon-react/lib/components/carousel";
 
 ### Default
 
-<Canvas>
-  <Story name="default" story={stories.Default} />
-</Canvas>
+<Canvas name="default" of={CarouselStories.Default} />
 
 ### Without buttons
 
-<Canvas>
-  <Story name="without buttons" story={stories.WithoutButtons} />
-</Canvas>
+<Canvas name="without buttons" of={CarouselStories.WithoutButtons} />
 
 ### Without slideSelectors
 
-<Canvas>
-  <Story name="without slideSelectors" story={stories.WithoutSlideSelectors} />
-</Canvas>
+<Canvas name="without slideSelectors" of={CarouselStories.WithoutSlideSelectors} />
 
 ## Props
 
 ### Carousel
 
-<ArgsTable of={Carousel} />
+<ArgTypes of={CarouselStories} />
 
 ### Slide
 
-<ArgsTable of={Slide} />
+<ArgTypes of={SlideStories} />

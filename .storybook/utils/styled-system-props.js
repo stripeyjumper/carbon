@@ -1,104 +1,81 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ArgsTable } from "@storybook/components";
+import { ArgTypes } from "@storybook/blocks";
 import { ArgsTable as Props } from "@storybook/addon-docs";
 
 const generateStyledSystemMarginProps = (defaults) => {
-  return [
-    {
-      name: "m",
-      type: { summary: "number | string" },
-      description:
-        "Margin, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.m || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+  const marginProps = {};
+  marginProps["m"] = {
+    name: "m",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-    {
-      name: "mt",
-      type: { summary: "number | string" },
-      description:
-        "Margin top, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.mt || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+    defaultValue: { summary: defaults.m || "-" },
+  };
+  marginProps["mt"] = {
+    name: "mt",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin top, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-    {
-      name: "mr",
-      type: { summary: "number | string" },
-      description:
-        "Margin right, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.mr || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+    defaultValue: { summary: defaults.mt || "-" },
+  };
+  marginProps["mr"] = {
+    name: "mr",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin right, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-    {
-      name: "mb",
-      type: { summary: "number | string" },
-      description:
-        "Margin bottom, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.mb || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+    defaultValue: { summary: defaults.mr || "-" },
+  };
+  marginProps["mb"] = {
+    name: "mb",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin bottom, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-    {
-      name: "ml",
-      type: { summary: "number | string" },
-      description:
-        "Margin left, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.ml || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+    defaultValue: { summary: defaults.mb || "-" },
+  };
+  marginProps["ml"] = {
+    name: "ml",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin left, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-    {
-      name: "mx",
-      type: { summary: "number | string" },
-      // eslint-disable-next-line max-len
-      description:
-        "Margin left/right, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.mx || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+    defaultValue: { summary: defaults.ml || "-" },
+  };
+  marginProps["mx"] = {
+    name: "mx",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin left/right, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-    {
-      name: "my",
-      type: { summary: "number | string" },
-      // eslint-disable-next-line max-len
-      description:
-        "Margin top/bottom, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
-      required: false,
-      defaultValue: {
-        summary: defaults.my || "-",
-      },
-      table: {
-        category: "Margin",
-      },
+    defaultValue: { summary: defaults.mx || "-" },
+  };
+  marginProps["my"] = {
+    name: "my",
+    type: { name: "number | string", required: false },
+    description:
+      "Margin top/bottom, an integer multiplier of the base spacing constant (8px) or any valid CSS string.",
+    table: {
+      category: "Margin",
     },
-  ];
+    defaultValue: { summary: defaults.my || "-" },
+  };
+  return [marginProps];
 };
 
 const generateStyledSystemPaddingProps = (defaults) => {
@@ -765,8 +742,8 @@ const generateStyledSystemBackgroundProps = (defaults) => {
 };
 
 const generateStyledSystemPositionProps = (defaults) => {
-  return [
-    {
+  return {
+    top: {
       name: "top",
       type: { summary: "string" },
       description: "Any valid CSS string.",
@@ -778,7 +755,7 @@ const generateStyledSystemPositionProps = (defaults) => {
         category: "position",
       },
     },
-    {
+    bottom: {
       name: "bottom",
       type: { summary: "string" },
       description: "Any valid CSS string.",
@@ -790,7 +767,7 @@ const generateStyledSystemPositionProps = (defaults) => {
         category: "position",
       },
     },
-    {
+    left: {
       name: "left",
       type: { summary: "string" },
       description: "Any valid CSS string.",
@@ -802,7 +779,7 @@ const generateStyledSystemPositionProps = (defaults) => {
         category: "position",
       },
     },
-    {
+    right: {
       name: "right",
       type: { summary: "string" },
       description: "Any valid CSS string.",
@@ -814,7 +791,7 @@ const generateStyledSystemPositionProps = (defaults) => {
         category: "position",
       },
     },
-    {
+    position: {
       name: "position",
       type: { summary: "string" },
       description: "Any valid CSS string.",
@@ -826,7 +803,7 @@ const generateStyledSystemPositionProps = (defaults) => {
         category: "position",
       },
     },
-  ];
+  };
 };
 
 const StyledSystemProps = ({
@@ -844,43 +821,72 @@ const StyledSystemProps = ({
   background,
   position,
 }) => {
-  let rows = [];
+  let props = {};
 
-  if (spacing) {
-    rows.push(...generateStyledSystemSpacingProps(defaults));
-  }
+  /* if (spacing) {
+    Object.assign(props, ...generateStyledSystemSpacingProps(defaults));
+  } */
   if (margin) {
-    rows.push(...generateStyledSystemMarginProps(defaults));
+    Object.assign(props, ...generateStyledSystemMarginProps(defaults));
   }
-  if (padding) {
-    rows.push(...generateStyledSystemPaddingProps(defaults));
+  /*if (padding) {
+    Object.assign(props, ...generateStyledSystemPaddingProps(defaults));
   }
   if (color) {
-    rows.push(...generateStyledSystemColorProps(defaults));
+    Object.assign(props, ...generateStyledSystemColorProps(defaults));
   }
   if (layout) {
-    rows.push(...generateStyledSystemLayoutProps(defaults));
+    Object.assign(props, ...generateStyledSystemLayoutProps(defaults));
   }
   if (width) {
-    rows.push(...generateStyledSystemWidthProps(defaults));
+    Object.assign(props, ...generateStyledSystemWidthProps(defaults));
   }
   if (flexBox) {
-    rows.push(...generateStyledSystemFlexBoxProps(defaults));
-  }
-  if (grid) {
-    rows.push(...generateStyledSystemGridProps(defaults));
+    Object.assign(props, ...generateStyledSystemFlexBoxProps(defaults, hasGapProps));
   }
   if (background) {
-    rows.push(...generateStyledSystemBackgroundProps(defaults));
-  }
+    Object.assign(props, ...generateStyledSystemBackgroundProps(defaults));
+  } */
   if (position) {
-    rows.push(...generateStyledSystemPositionProps(defaults));
+    Object.assign(props, ...generateStyledSystemPositionProps(defaults));
   }
+
+  console.log(props);
+
+  const argTypes = {
+      default: {
+        control: "text",
+        description: "Slot content",
+        defaultValue: "Big Blue",
+        type: { name: "string", required: true },
+      },
+      type: {
+        control: {
+          type: "select",
+          options: ["button", "submit", "reset"],
+        },
+      },
+      color: {
+        control: {
+          type: "select",
+          options: [
+            "primary",
+            "secondary",
+            "success",
+            "danger",
+            "warning",
+            "info",
+            "light",
+            "dark",
+          ],
+        },
+      },
+    };
 
   return (
     <>
       {!noHeader && <h2>Props</h2>}
-      <ArgsTable rows={rows} />
+      <ArgTypes of={argTypes} />
       {of && <Props of={of} />}
     </>
   );

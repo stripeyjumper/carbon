@@ -31,13 +31,13 @@ export const NewValidationContext = createContext<
   >
 >({});
 
-export const CarbonProvider = ({
+export function CarbonProvider({
   children,
   theme = mintTheme,
   validationRedesignOptIn = false,
   roundedCornersOptOut = false,
   focusRedesignOptOut = false,
-}: CarbonProviderProps) => {
+}: CarbonProviderProps) {
   const {
     roundedCornersOptOut: existingRoundedCornersOptOut,
     focusRedesignOptOut: existingFocusRedesignOptOut,
@@ -67,6 +67,6 @@ export const CarbonProvider = ({
       </CarbonScopedTokensProvider>
     </ThemeProvider>
   );
-};
+}
 
 export default CarbonProvider;

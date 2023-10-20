@@ -1,12 +1,17 @@
-import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
+import { ArgTypes } from "@storybook/blocks";
+// import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import BatchSelection from ".";
 import IconButton from "../icon-button";
 
-import * as stories from "./batch-selection.stories";
+import * as BatchSelectionStories from "./batch-selection.stories";
 
-<Meta title="Batch Selection" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Batch Selection"
+  parameters={{ info: { disable: true } }}
+  of={BatchSelectionStories}
+/>
 
 # Batch Selection
 
@@ -33,55 +38,55 @@ import IconButton from "carbon-react/lib/components/icon-button";
 ### Default usage
 
 <Canvas>
-  <Story name="default" story={stories.Default} />
+  <Story name="Default" story={BatchSelectionStories.Default} />
 </Canvas>
 
 ### On dark background
 
 <Canvas>
-  <Story name="dark" story={stories.Dark} />
+  <Story name="Dark" story={BatchSelectionStories.Dark} />
 </Canvas>
 
 ### On light background
 
 <Canvas>
-  <Story name="light" story={stories.Light} />
+  <Story name="Light" story={BatchSelectionStories.Light} />
 </Canvas>
 
 ### On white background
 
 <Canvas>
-  <Story name="white" story={stories.White} />
+  <Story name="White" story={BatchSelectionStories.White} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled" story={stories.Disabled} />
+  <Story name="Disabled" story={BatchSelectionStories.Disabled} />
 </Canvas>
 
 ## Props
 
 ### Batch Selection
 
-<ArgsTable of={BatchSelection} />
+<ArgTypes of={BatchSelection} />
 
 ### Icon Button
 
-<ArgsTable of={IconButton} />
+<ArgTypes of={IconButton} />
 
 ## Translation keys
 
 The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
-<TranslationKeysTable
-  translationData={[
-    {
-      name: "batchSelection.selected",
-      description: "The text displayed to indicate how many items are selected",
-      type: "func",
-      returnType: "string",
-    },
-  ]}
-/>
+{/*<TranslationKeysTable
+translationData={[
+{
+name: "batchSelection.selected",
+description: "The text displayed to indicate how many items are selected",
+type: "func",
+returnType: "string",
+},
+]}
+/>*/}

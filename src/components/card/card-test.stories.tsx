@@ -65,7 +65,7 @@ export const DefaultStory: ComponentStory<typeof Card> = (
 };
 DefaultStory.storyName = "default";
 
-export const CardComponent = (props: Partial<CardProps>) => {
+export function CardComponent(props: Partial<CardProps>) {
   return (
     <Card {...props}>
       <CardRow>
@@ -97,9 +97,9 @@ export const CardComponent = (props: Partial<CardProps>) => {
       </CardFooter>
     </Card>
   );
-};
+}
 
-export const DraggableExample = () => {
+export function DraggableExample() {
   const columnNames = {
     PRODUCT_ONE: "Product One",
     PRODUCT_TWO: "Product Two",
@@ -118,11 +118,11 @@ export const DraggableExample = () => {
     title: string;
   }
 
-  const MovableItem = ({
+  function MovableItem({
     "data-element": dataElement,
     name,
     changeColumn,
-  }: MovableItemProps) => {
+  }: MovableItemProps) {
     const [{ isDragging }, drag] = useDrag({
       type: ITEM_TYPE,
       item: { name },
@@ -160,13 +160,13 @@ export const DraggableExample = () => {
         </Card>
       </Box>
     );
-  };
+  }
 
-  const Column = ({
+  function Column({
     "data-element": dataElement,
     children,
     title,
-  }: ColumnProps) => {
+  }: ColumnProps) {
     const [{ isOver }, drop] = useDrop({
       accept: ITEM_TYPE,
       drop: () => ({ column: title }),
@@ -202,7 +202,7 @@ export const DraggableExample = () => {
         {children}
       </Box>
     );
-  };
+  }
 
   const [cards, setCards] = React.useState([
     { id: 0, name: "Item 1", column: columnNames.PRODUCT_ONE },
@@ -252,9 +252,9 @@ export const DraggableExample = () => {
       </Box>
     </Box>
   );
-};
+}
 
-export const CardTextAlignment = ({ ...props }) => {
+export function CardTextAlignment({ ...props }) {
   return (
     <Card>
       <CardRow>
@@ -268,4 +268,4 @@ export const CardTextAlignment = ({ ...props }) => {
       </CardRow>
     </Card>
   );
-};
+}

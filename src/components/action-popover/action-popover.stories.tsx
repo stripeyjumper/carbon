@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react";
 import {
   ActionPopover,
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
   ActionPopoverMenuButton,
+  ActionPopoverProps,
 } from ".";
 import Link from "../link";
 import Box from "../box";
@@ -21,9 +22,24 @@ import Confirm from "../confirm";
 import { Accordion } from "../accordion";
 import Dialog from "../dialog";
 
-export const ActionPopoverComponent: ComponentStory<
-  typeof ActionPopover
-> = () => {
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+}) as Partial<ArgTypes<ActionPopoverProps>>;
+
+const meta: Meta<typeof ActionPopover> = {
+  title: "ActionPopover",
+  component: ActionPopover,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof ActionPopover>;
+
+export const Default: Story = () => {
   const submenu = (
     <ActionPopoverMenu>
       <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
@@ -93,10 +109,9 @@ export const ActionPopoverComponent: ComponentStory<
     </div>
   );
 };
+Default.storyName = "Default";
 
-export const ActionPopoverComponentIcons: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const Icons: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -113,10 +128,9 @@ export const ActionPopoverComponentIcons: ComponentStory<
     </div>
   );
 };
+Icons.storyName = "Icons";
 
-export const ActionPopoverComponentDisabledItems: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const DisabledItems: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -149,10 +163,9 @@ export const ActionPopoverComponentDisabledItems: ComponentStory<
     </div>
   );
 };
+DisabledItems.storyName = "Disabled Items";
 
-export const ActionPopoverComponentMenuRightAligned: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const MenuRightAligned: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -169,10 +182,9 @@ export const ActionPopoverComponentMenuRightAligned: ComponentStory<
     </div>
   );
 };
+MenuRightAligned.storyName = "Menu Right Aligned";
 
-export const ActionPopoverComponentContentAlignedRight: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const ContentAlignedRight: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -185,10 +197,9 @@ export const ActionPopoverComponentContentAlignedRight: ComponentStory<
     </div>
   );
 };
+ContentAlignedRight.storyName = "Content Aligned Right";
 
-export const ActionPopoverComponentNoIcons: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const NoIcons: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -203,10 +214,9 @@ export const ActionPopoverComponentNoIcons: ComponentStory<
     </div>
   );
 };
+NoIcons.storyName = "No Icons";
 
-export const ActionPopoverComponentCustomMenuButton: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const CustomMenuButton: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -256,10 +266,9 @@ export const ActionPopoverComponentCustomMenuButton: ComponentStory<
     </div>
   );
 };
+CustomMenuButton.storyName = "Custom Menu Button";
 
-export const ActionPopoverComponentSubmenu: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const Submenu: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -291,10 +300,9 @@ export const ActionPopoverComponentSubmenu: ComponentStory<
     </div>
   );
 };
+Submenu.storyName = "Submenu";
 
-export const ActionPopoverComponentDisabledSubmenu: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const DisabledSubmenu: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -321,10 +329,9 @@ export const ActionPopoverComponentDisabledSubmenu: ComponentStory<
     </div>
   );
 };
+DisabledSubmenu.storyName = "Disabled Submenu";
 
-export const ActionPopoverComponentSubmenuPositionedRight: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const SubmenuPositionedRight: Story = () => {
   const submenu = (
     <ActionPopoverMenu>
       <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
@@ -350,10 +357,12 @@ export const ActionPopoverComponentSubmenuPositionedRight: ComponentStory<
     </div>
   );
 };
+SubmenuPositionedRight.storyName = "Submenu Positioned Right";
+SubmenuPositionedRight.parameters = {
+  docs: { disable: true },
+};
 
-export const ActionPopoverComponentMenuOpeningAbove: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const MenuOpeningAbove: Story = () => {
   return (
     <div style={{ paddingTop: "120px", height: "250px" }}>
       <Box>
@@ -379,10 +388,9 @@ export const ActionPopoverComponentMenuOpeningAbove: ComponentStory<
     </div>
   );
 };
+MenuOpeningAbove.storyName = "Menu Opening Above";
 
-export const ActionPopoverComponentKeyboardNavigation: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const KeyboardNavigation: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -405,10 +413,9 @@ export const ActionPopoverComponentKeyboardNavigation: ComponentStory<
     </div>
   );
 };
+KeyboardNavigation.storyName = "Keyboard Navigation";
 
-export const ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const KeyboardNavigationLeftAlignedSubmenu: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -454,10 +461,10 @@ export const ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu: Compone
     </div>
   );
 };
+KeyboardNavigationLeftAlignedSubmenu.storyName =
+  "Keyboard Navigation Left Aligned Submenu";
 
-export const ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const KeyboardNavigationRightAlignedSubmenu: Story = () => {
   return (
     <div style={{ height: "250px" }}>
       <Box>
@@ -503,10 +510,13 @@ export const ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu: Compon
     </div>
   );
 };
+KeyboardNavigationRightAlignedSubmenu.storyName =
+  "Keyboard Navigation Right Aligned Submenu";
+KeyboardNavigationRightAlignedSubmenu.parameters = {
+  docs: { disable: true },
+};
 
-export const ActionPopoverComponentAdditionalOptions: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const AdditionalOptions: Story = () => {
   return (
     <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <Box>
@@ -524,10 +534,9 @@ export const ActionPopoverComponentAdditionalOptions: ComponentStory<
     </div>
   );
 };
+AdditionalOptions.storyName = "Additional Options";
 
-export const ActionPopoverComponentDownloadButton: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const DownloadButton: Story = () => {
   return (
     <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <Box>
@@ -546,10 +555,9 @@ export const ActionPopoverComponentDownloadButton: ComponentStory<
     </div>
   );
 };
+DownloadButton.storyName = "Download Button";
 
-export const ActionPopoverComponentInOverflowHiddenContainer: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const InOverflowHiddenContainer: Story = () => {
   return (
     <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <Accordion title="Heading">
@@ -595,10 +603,9 @@ export const ActionPopoverComponentInOverflowHiddenContainer: ComponentStory<
     </div>
   );
 };
+InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
 
-export const ActionPopoverComponentInFlatTable: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const InFlatTable: Story = () => {
   const [highlightedRow, setHighlightedRow] = useState("");
   const handleHighlightRow = (id: string) => {
     setHighlightedRow(id);
@@ -690,10 +697,9 @@ export const ActionPopoverComponentInFlatTable: ComponentStory<
     </div>
   );
 };
+InFlatTable.storyName = "In Flat Table";
 
-export const ActionPopoverComponentOpeningAModal: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const OpeningAModal: Story = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -734,10 +740,9 @@ export const ActionPopoverComponentOpeningAModal: ComponentStory<
     </>
   );
 };
+OpeningAModal.storyName = "Opening a Modal";
 
-export const ActionPopoverNestedInDialog: ComponentStory<
-  typeof ActionPopover
-> = () => {
+export const ActionPopoverNestedInDialog: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
@@ -753,3 +758,4 @@ export const ActionPopoverNestedInDialog: ComponentStory<
     </Dialog>
   );
 };
+ActionPopoverNestedInDialog.storyName = "Action Popover Nested in Dialog";

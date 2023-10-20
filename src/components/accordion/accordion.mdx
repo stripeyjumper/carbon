@@ -1,37 +1,24 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { AccordionGroup, Accordion } from ".";
+import { ArgTypes } from "@storybook/blocks";
+import { Meta, Canvas } from "@storybook/addon-docs";
 
-import {
-  AccordionDefault,
-  WithDisableContentPadding,
-  Transparent,
-  Small,
-  Subtitle,
-  Fullborder,
-  LeftAlignedIcon,
-  DifferentWidth,
-  WithDifferentPaddingAndMargin,
-  WithDifferentPaddingAndMarginInAccordionTitle,
-  WithBoxComponentAndDifferentPaddings,
-  OpeningButton,
-  Grouped,
-  WithValidationIcon,
-  WithDefinitionList,
-  WithDynamicContent,
-} from "./accordion.stories.tsx";
+import * as AccordionStories from "./accordion.stories";
+import * as AccordionGroupStories from "./accordion-group/accordion-group.stories";
 
-<Meta title="Accordion" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Accordion"
+  parameters={{ info: { disable: true } }}
+  of={AccordionStories}
+/>
 
 # Accordion
 
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/028f94-accordion/b/3614a6"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Accordions are a good progressive disclosure technique - initially showing only top-level information, but allowing the user quick access to more on request. But, they can confuse users sometimes, so use them sparingly.
@@ -85,122 +72,67 @@ const MyComponent = () => (
 
 Default version of accordion has white background and no side borders.
 
-<Canvas>
-  <Story name="default" story={AccordionDefault} />
-</Canvas>
+<Canvas of={AccordionStories.AccordionDefault} />
 
 ### With disableContentPadding
 
 Accordion without padding inside of the content.
 
-<Canvas>
-  <Story
-    parameters={{ chromatic: { disableSnapshot: true } }}
-    name="with disableContentPadding"
-    story={WithDisableContentPadding}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithDisableContentPadding} />
 
 ### Transparent
 
 Transparent scheme has transparent background.
 
-<Canvas>
-  <Story 
-    name="transparent" 
-    parameters={{ chromatic: { disableSnapshot: true } }}
-    story={Transparent}
-  />
-</Canvas>
+<Canvas of={AccordionStories.Transparent} />
 
 ### Small
 
 Small version has a smaller heading and less padding.
 
-<Canvas>
-  <Story 
-    name="small"
-    story={Small}
-  />
-</Canvas>
+<Canvas of={AccordionStories.Small} />
 
 ### Sub title
 
 A sub title can be added when the size is large (default).
 
-<Canvas>
-  <Story 
-    name="sub title" 
-    story={Subtitle}
-  />
-</Canvas>
+<Canvas of={AccordionStories.Subtitle} />
 
 ### Full border
 
 The accordion can have side borders along with the default top and bottom.
 
-<Canvas>
-  <Story 
-    name="full border"
-    story={Fullborder}
-  />
-</Canvas>
+<Canvas of={AccordionStories.Fullborder} />
 
 ### Left aligned icon
 
 The accordion icon can be left aligned.
 
-<Canvas>
-  <Story 
-    name="icon left"
-    story={LeftAlignedIcon}
-  />
-</Canvas>
+<Canvas of={AccordionStories.LeftAlignedIcon} />
 
 ### Different width
 
 The default width of 100% can be overriden.
 
-<Canvas>
-  <Story 
-    name="different width"
-    story={DifferentWidth}
-  />
-</Canvas>
+<Canvas of={AccordionStories.DifferentWidth} />
 
 ### With different padding and margin
 
 Showing the different paddings and margins
 
-<Canvas>
-  <Story 
-    name="with different padding and margin"
-    story={WithDifferentPaddingAndMargin}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithDifferentPaddingAndMargin} />
 
 ### With different padding and margin in Accordion title
 
 Showing the different paddings and margins within the accordion title
 
-<Canvas>
-  <Story 
-    name="with different padding and margin in Accordion title"
-    story={WithDifferentPaddingAndMarginInAccordionTitle}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithDifferentPaddingAndMarginInAccordionTitle} />
 
 ### With Box component and different paddings
 
 The box component can be used inside the accordion with different paddings
 
-<Canvas>
-  <Story
-    name="with Box component and different paddings"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-    story={WithBoxComponentAndDifferentPaddings}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithBoxComponentAndDifferentPaddings} />
 
 ### Opening button
 
@@ -210,12 +142,7 @@ can be used to override the spacing styles.
 
 This is not currently designed to be used within a form using validation.
 
-<Canvas>
-  <Story
-    name="opening button"
-    story={OpeningButton}
-  />
-</Canvas>
+<Canvas of={AccordionStories.OpeningButton} />
 
 ### Grouped
 
@@ -223,54 +150,33 @@ To group accordions import `AccordionGroup`. Accordions borders collapse when po
 To achieve proper keyboard accessibility as described in `W3` sources it is required to wrap neighbouring accordions in
 `AccordionGroup`.
 
-<Canvas>
-  <Story
-    name="grouped" 
-    story={Grouped}
-  />
-</Canvas>
+<Canvas of={AccordionStories.Grouped} />
 
 ### With validation icon
 
 The `ValidationIcon` can be displayed in the `Accordion` header by passing in a string via one of the `error`,
 `warning` or `info` props. This message will be displayed as in the tooltip.
 
-<Canvas>
-  <Story
-    name="validation icon"
-    story={WithValidationIcon}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithValidationIcon} />
 
 ### With dynamic content
 
 Accordion adjust it's height properly when it's content is being dynamically changed
 
-<Canvas>
-  <Story
-    name="with dynamic content"
-    story={WithDynamicContent}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithDynamicContent} />
 
 ### With a definition list
 
 Accordion with a definiton list
 
-<Canvas>
-  <Story
-    name="with a definition list"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-    story={WithDefinitionList}
-  />
-</Canvas>
+<Canvas of={AccordionStories.WithDefinitionList} />
 
 ## Props
 
 ### Accordion
 
-<StyledSystemProps of={Accordion} noHeader spacing />
+<ArgTypes of={AccordionStories} />
 
 ### AccordionGroup
 
-<StyledSystemProps of={AccordionGroup} noHeader margin />
+<ArgTypes of={AccordionGroupStories} />

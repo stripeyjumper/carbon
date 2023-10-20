@@ -1,23 +1,26 @@
 const path = require("path");
 const glob = require("glob");
-
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
 const isChromatic = !ignoreTests;
 const getStories = () =>
-  glob.sync(`${projectRoot}/src/**/*.stories.@(js|mdx|tsx)`, {
+  glob.sync(`${projectRoot}/src/**/*.@(mdx)`, {
+    ...(ignoreTests && {
+      ignore: `${projectRoot}/src/**/*.stories.@(js|mdx|tsx)`,
+    }),
+  });
+const getCSFStories = () =>
+  glob.sync(`${projectRoot}/src/**/*.stories.@(jsx|tsx)`, {
     ...(ignoreTests && {
       ignore: `${projectRoot}/src/**/*-test.stories.@(js|mdx|tsx)`,
     }),
   });
-
 module.exports = {
-  framework: "@storybook/react",
-  stories: (list) => [
-    ...list,
+  stories: [
     "./welcome-page/welcome.stories.js",
-    "../docs/*.stories.mdx",
+    "../docs/*.mdx",
     ...getStories(),
+    ...getCSFStories(),
   ],
   core: {
     disableTelemetry: true,
@@ -31,6 +34,7 @@ module.exports = {
     "@storybook/addon-google-analytics",
     "@storybook/addon-links",
     "@storybook/addon-toolbars",
+    "@storybook/addon-mdx-gfm",
   ],
   staticDirs: ["../.assets", "../logo"],
   webpackFinal: async (config, { configType }) => {
@@ -41,10 +45,18 @@ module.exports = {
       extensions: [".js", ".tsx", ".ts"],
     };
 
-    // Workaround to stop hashes being added to font filenames, so we can pre-load them
-    config.module.rules.find((rule) =>
+    // Find the rule that matches the condition
+    const fontRule = config.module.rules.find((rule) =>
       rule.test.toString().includes("woff2")
-    ).options.name = "static/media/[name].[ext]";
+    );
+    if (fontRule && Array.isArray(fontRule.use)) {
+      // Update the name property for the appropriate loader in the use array
+      fontRule.use.forEach((loader) => {
+        if (loader.loader && loader.loader.includes("file-loader")) {
+          loader.options.name = "static/media/[name].[ext]";
+        }
+      });
+    }
 
     return config;
   },
@@ -58,4 +70,11 @@ module.exports = {
       <meta name="robots" content="noindex">
   `,
   }),
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+  docs: {
+    autodocs: true,
+  },
 };

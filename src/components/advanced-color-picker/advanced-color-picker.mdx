@@ -1,11 +1,14 @@
+import { ArgTypes } from '@storybook/blocks';
 import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import AdvancedColorPicker from ".";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import * as stories from "./advanced-color-picker.stories.tsx"
+import * as AdvancedColorPickerStories from "./advanced-color-picker.stories";
+// import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-
-<Meta title="Advanced Color Picker" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Advanced Color Picker"
+  parameters={{ info: { disable: true } }}
+  of={AdvancedColorPickerStories}
+/>
 
 # Advanced Color Picker
 
@@ -31,40 +34,41 @@ import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-pick
 
 Shows how the color picker can be used to select a color from a predefined set.
 
-<Canvas>
-  <Story name="default" story={stories.Default} />
-</Canvas>
+<Canvas name="default" of={AdvancedColorPickerStories.Default} />
 
 ## Props
 
 ### AdvancedColorPicker
 
-<StyledSystemProps of={AdvancedColorPicker} noHeader margin />
+<ArgTypes of={AdvancedColorPickerStories} />
 
 ## Translation keys
 
 The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
-<TranslationKeysTable
+{/*TODO: <TranslationKeysTable
   translationData={[
     {
       name: "advancedColorPicker.currentColorDescriptionTerm",
-      description: "The text which specifies the term in the visually hidden color description list",
+      description:
+        "The text which specifies the term in the visually hidden color description list",
       type: "func",
       returnType: "string",
     },
-        {
+    {
       name: "advancedColorPicker.currentColorAssigned",
-      description: "The text which specifies the currently selected color in the visually hidden color description list",
+      description:
+        "The text which specifies the currently selected color in the visually hidden color description list",
       type: "func",
       returnType: "string",
     },
-            {
+    {
       name: "advancedColorPicker.ariaLabel",
-      description: "The text which specifies the aria-label which will be applied to the color picker cell button which opens the component",
+      description:
+        "The text which specifies the aria-label which will be applied to the color picker cell button which opens the component",
       type: "func",
       returnType: "string",
     },
   ]}
-/>
+/>*/}
