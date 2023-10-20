@@ -114,6 +114,15 @@
   },
   "overrides": [
     {
+      "files": ["*.mdx"],
+      "extends": "plugin:mdx/recommended",
+      "rules": {
+        "jsx-a11y/anchor-has-content": "off",
+        "jsx-a11y/control-has-associated-label": "off",
+        "react/self-closing-comp": "off"
+      }
+    },
+    {
       "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
@@ -132,6 +141,7 @@
         "prettier/@typescript-eslint"
       ],
       "settings": {
+        "mdx/code-blocks": true,
         "react": {
           "version": "detect"
         }
@@ -153,6 +163,18 @@
           }
         ],
         "react/prop-types": "off"
+      }
+    },
+    {
+      "files": ["*.stories.tsx"],
+      "rules": {
+        "react/function-component-definition": [
+          2,
+          {
+            "namedComponents": "arrow-function",
+            "unnamedComponents": "arrow-function"
+          }
+        ]
       }
     },
     {
