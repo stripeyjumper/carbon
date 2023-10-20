@@ -357,7 +357,7 @@ export const SubmenuPositionedRight: Story = () => {
     </div>
   );
 };
-SubmenuPositionedRight.storyName = "Submenu Positioned Right";
+SubmenuPositionedRight.storyName = "Sub Menu Positioned Right";
 SubmenuPositionedRight.parameters = {
   docs: { disable: true },
 };

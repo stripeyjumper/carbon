@@ -7,6 +7,7 @@ import { ButtonToggle } from "..";
 const meta: Meta<typeof ButtonToggleGroup> = {
   title: "ButtonToggleGroup",
   component: ButtonToggleGroup,
+  tags: ["isHidden"],
 };
 
 export default meta;

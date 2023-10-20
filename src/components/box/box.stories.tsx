@@ -133,7 +133,7 @@ export const Flex: Story = () => {
 };
 Flex.storyName = "Flex";
 
-export const Grid: Story = () => {
+export const grid: Story = () => {
   return (
     <Box>
       <Box display="grid" gap={1} gridTemplateColumns="auto auto auto">
@@ -178,7 +178,7 @@ export const Grid: Story = () => {
     </Box>
   );
 };
-Grid.storyName = "Grid";
+grid.storyName = "Grid";
 
 export const Gap: Story = () => {
   return (
@@ -388,7 +388,7 @@ export const RoundedCorners: Story = () => {
         />
       ))}
     </Box>
-  )
+  );
 };
 RoundedCorners.storyName = "Rounded Corners";
 RoundedCorners.parameters = { chromatic: { disableSnapshot: false } };

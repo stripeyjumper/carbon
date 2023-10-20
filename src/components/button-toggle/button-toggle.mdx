@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Canvas } from "@storybook/addon-docs";
+import { ArgTypes } from "@storybook/blocks";
+
 import LinkTo from "@storybook/addon-links/react";
 
 import * as ButtonToggleStories from "./button-toggle.stories";
@@ -20,6 +21,7 @@ import * as ButtonToggleGroupStories from "./button-toggle-group/button-toggle-g
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/996a28-button-toggle/b/7384f9"
   style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  rel="noreferrer"
 >
   Product Design System component
 </a>
@@ -97,42 +99,46 @@ If you use this, you should include text in the `fieldHelp` prop which makes cle
 
 While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be used with `buttonIcon` so assistive techniques are aware of the action that will be taken when the component pressed.
 
-<Canvas name="icon only" of={ButtonToggleStories.iconOnly} />
+<Canvas name="icon only" of={ButtonToggleStories.IconOnly} />
 
 ### Small
 
-<Canvas name="small" of={ButtonToggleStories.small} />
+<Canvas name="small" of={ButtonToggleStories.Small} />
 
 ### Small with small icon
 
-<Canvas name="small with small icon" of={ButtonToggleStories.smallSmallIcon} />
+<Canvas name="small with small icon" of={ButtonToggleStories.SmallSmallIcon} />
 
 ### Small with large icon
 
-<Canvas name="small with large icon" of={ButtonToggleStories.smallLargeIcon} />
+<Canvas name="small with large icon" of={ButtonToggleStories.SmallLargeIcon} />
 
 ### Large
 
-<Canvas name="large" of={ButtonToggleStories.large} />
+<Canvas name="large" of={ButtonToggleStories.Large} />
 
 ### Large with small icon
 
-<Canvas name="large with small icon" of={ButtonToggleStories.largeSmallIcon} />
+<Canvas name="large with small icon" of={ButtonToggleStories.LargeSmallIcon} />
 
 ### Large with large icon
 
-<Canvas name="large with large icon" of={ButtonToggleStories.largeLargeIcon} />
+<Canvas name="large with large icon" of={ButtonToggleStories.LargeLargeIcon} />
 
 ### Disabled
 
-<Canvas name="disabled" of={ButtonToggleStories.disabled} />
+<Canvas name="disabled" of={ButtonToggleStories.Disabled} />
 
 ### Grouped
 
-<Canvas name="grouped" of={ButtonToggleStories.grouped} />
+<Canvas name="grouped" of={ButtonToggleStories.Grouped} />
 
 ## Props
 
 ### Button Toggle
 
-<ArgsTable of={ButtonToggle} />
+<ArgTypes of={ButtonToggleStories} />
+
+### Button Toggle Group
+
+<ArgTypes of={ButtonToggleGroupStories} />

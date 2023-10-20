@@ -1,13 +1,4 @@
-import { useState } from "react";
-import { ArgTypes } from "@storybook/blocks";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import LinkTo from "@storybook/addon-links/react";
-import {
-  ActionPopover,
-  ActionPopoverItem,
-  ActionPopoverMenu,
-  ActionPopoverMenuButton,
-} from ".";
+import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs";
 
 import * as ActionPopoverStories from "./action-popover.stories";
 
@@ -23,6 +14,7 @@ import * as ActionPopoverStories from "./action-popover.stories";
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/5722a7-action-popover/b/48b79b"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
 >
   Product Design System component
 </a>
@@ -70,6 +62,7 @@ import {
 Story showing most of the functionality of the action popover and what can be achieved by using it
 
 <Canvas name="default" of={ActionPopoverStories.Default} />
+
 ### With icons
 
 Each item is clickable and represents an action to be taken on a given row.
@@ -129,12 +122,10 @@ leave.
 
 Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
 
-<Canvas>
-  <Story
-    name="with submenu positioned to right"
-    story={ActionPopoverStories.SubmenuPositionedRight}
-  />
-</Canvas>
+<Canvas
+  name="with submenu positioned to right"
+  of={ActionPopoverStories.SubmenuPositionedRight}
+/>
 
 ### With disabled submenu
 
