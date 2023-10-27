@@ -21,12 +21,15 @@ jobs:
       options: --user 1001
     steps:
       - id: get_pull
-        uses: octokit/request-action@v2.x
+        name: Get PR metadata
+        uses: actions/github-script@v6
         with:
-          route: GET /repos/{owner}/{repo}/pulls/{pull_number}
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          pull_number: ${{ github.event.inputs.number }}
+          script: |
+            github.rest.pulls.get({
+              owner: context.repo.owner
+              repo: context.repo.repo
+              pull_number: ${{ github.event.inputs.number }}
+            })
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -71,7 +74,7 @@ jobs:
           quiet: true
           browser: chrome
         env:
-          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
+          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.result).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CI: "true"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -89,25 +92,25 @@ jobs:
       - name: Report status - success
         if: always() && success()
         run: |
-            curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.data).head.sha }} \
-            -d '{
-              "state": "success",
-              "context": "Cypress tests",
-              "description": "workflow completed successfully."
-            }'
-        
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.result).head.sha }} \
+          -d '{
+            "state": "success",
+            "context": "Cypress tests",
+            "description": "workflow completed successfully."
+          }'
+
       - name: Report status - failed
         if: always() && failure()
         run: |
-            curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.data).head.sha }} \
-            -d '{
-              "state": "failure",
-              "context": "Cypress tests",
-              "description": "workflow failed."
-            }'
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.result).head.sha }} \
+          -d '{
+            "state": "failure",
+            "context": "Cypress tests",
+            "description": "workflow failed."
+          }'

@@ -10,15 +10,19 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: dispatch_cypress
+      - name: Trigger Cypress workflow
+        uses: actions/github-script@v6
         with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          workflow_id: "cypress.yml"
-          ref: "master"
-          inputs: '{"number": "${{ github.event.pull_request.number }}"}'
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner
+              repo: context.repo.repo
+              workflow_id: "cypress.yml"
+              ref: "master"
+              inputs: {
+                "number": "${{ github.event.pull_request.number }}"
+              }
+            })
         env:
           GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
 
@@ -27,15 +31,19 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: dispatch_chromatic
+      - name: Trigger Chromatic workflow
+        uses: actions/github-script@v6
         with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          workflow_id: "chromatic.yml"
-          ref: "master"
-          inputs: '{"number": "${{ github.event.pull_request.number }}"}'
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner
+              repo: context.repo.repo
+              workflow_id: "chromatic.yml"
+              ref: "master"
+              inputs: {
+                "number": "${{ github.event.pull_request.number }}"
+              }
+            })
         env:
           GITHUB_TOKEN: ${{ secrets.CHROMATIC_WORKFLOW_TOKEN }}
 
@@ -44,14 +52,18 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: dispatch_playwright
+      - name: Trigger Playwright workflow
+        uses: actions/github-script@v6
         with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          workflow_id: "playwright.yml"
-          ref: "master"
-          inputs: '{"number": "${{ github.event.pull_request.number }}"}'
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner
+              repo: context.repo.repo
+              workflow_id: "playwright.yml"
+              ref: "master"
+              inputs: {
+                "number": "${{ github.event.pull_request.number }}"
+              }
+            })
         env:
           GITHUB_TOKEN: ${{ secrets.PLAYWRIGHT_WORKFLOW_TOKEN }}
