@@ -35,10 +35,18 @@ Below are some useful extensions that we recommend using with Carbon:
 
 ### Node.js & NPM
 
-The recommended way to install `node` and `npm` is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
-Once you have installed `nvm`, you should run `nvm install lts/hydrogen` which will install a suitable version of `node` and `npm`.
+The recommended way to install Node.js and npm is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
+Once you have installed nvm, you should run:
+
+```sh
+nvm install lts/iron
+```
+
+which will install a suitable version of Node and npm.
 
 You can check your installation using `node --version` and `npm --v`.
+
+>If you are already a `nvm` user, you can also do `nvm use` which will automatically switch to the correct Node and npm versions.
 
 ### Git
 
