@@ -1081,6 +1081,18 @@ context("Tests for SimpleSelect component", () => {
     });
   });
 
+  // see https://github.com/Sage/carbon/issues/6399
+  describe("test for scroll bug regression", () => {
+    it("should show the first option after scrolling through the list, closing and then reopening", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
+      dropdownButton().click();
+      selectListWrapper().scrollTo("bottom");
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      dropdownButton().click();
+      selectListText("Amber").should("be.visible");
+    });
+  });
+
   describe("Accessibility tests for SimpleSelect component", () => {
     it("should pass accessibility tests for SimpleSelect", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent />);
@@ -1392,6 +1404,31 @@ context("Tests for SimpleSelect component", () => {
       );
 
       selectText().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SimpleSelect with virtual scrolling after selecting an option and then closing the select", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      selectText().click();
+      selectListText("Option 1.").click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SimpleSelect with virtual scrolling after selecting an option and scrolling till it is out of view", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      selectText().click();
+      selectListText("Option 1.").click();
+      selectText().click();
+      for (let i = 0; i < 50; i++) {
+        selectListWrapper().scrollTo("bottom");
+        cy.wait(0);
+      }
       cy.checkAccessibility();
     });
 

@@ -1235,6 +1235,18 @@ context("Tests for MultiSelect component", () => {
     multiSelectPill().should("not.exist");
   });
 
+  // see https://github.com/Sage/carbon/issues/6399
+  describe("test for scroll bug regression", () => {
+    it("should show the first option after scrolling through the list, closing and then reopening", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+      dropdownButton().click();
+      selectListWrapper().scrollTo("bottom");
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      dropdownButton().click();
+      selectListText("Amber").should("be.visible");
+    });
+  });
+
   describe("Accessibility tests for MultiSelect component", () => {
     it("should pass accessibilty tests for MultiSelect", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent />);
@@ -1515,6 +1527,30 @@ context("Tests for MultiSelect component", () => {
       );
 
       dropdownButton().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiSelect with virtual scrolling after selecting an option and then closing the select", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+      selectListText("Option 1.").click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiSelect with virtual scrolling after selecting an option and scrolling till it is out of view", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+      selectListText("Option 1.").click();
+      for (let i = 0; i < 50; i++) {
+        selectListWrapper().scrollTo("bottom");
+        cy.wait(0);
+      }
       cy.checkAccessibility();
     });
 

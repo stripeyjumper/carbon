@@ -1235,6 +1235,18 @@ context("Tests for FilterableSelect component", () => {
     getDataElementByValue("input").should("have.attr", "value", "");
   });
 
+  // see https://github.com/Sage/carbon/issues/6399
+  describe("test for scroll bug regression", () => {
+    it("should show the first option after scrolling through the list, closing and then reopening", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+      dropdownButton().click();
+      selectListWrapper().scrollTo("bottom");
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      dropdownButton().click();
+      selectListText("Amber").should("be.visible");
+    });
+  });
+
   describe("Accessibility tests for FilterableSelect component", () => {
     it("should pass accessibilty tests for FilterableSelect", () => {
       CypressMountWithProviders(<stories.FilterableSelectComponent />);
@@ -1524,6 +1536,31 @@ context("Tests for FilterableSelect component", () => {
       );
 
       dropdownButton().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for FilterableSelect with virtual scrolling after selecting an option and then closing the select", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+      selectListText("Option 1.").click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for FilterableSelect with virtual scrolling after selecting an option and scrolling till it is out of view", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+      selectListText("Option 1.").click();
+      dropdownButton().click();
+      for (let i = 0; i < 50; i++) {
+        selectListWrapper().scrollTo("bottom");
+        cy.wait(0);
+      }
       cy.checkAccessibility();
     });
 

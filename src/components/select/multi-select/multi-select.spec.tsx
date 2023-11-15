@@ -6,6 +6,10 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
+import {
+  simulateSelectTextboxEvent,
+  simulateDropdownEvent,
+} from "../../../__spec_helper__/select-test-utils";
 import { MultiSelect, Option, MultiSelectProps } from "..";
 import Textbox from "../../textbox";
 import SelectList from "../select-list/select-list.component";
@@ -104,34 +108,34 @@ describe("MultiSelect", () => {
 
     describe("and that element is part of the Select", () => {
       it("then the SelectList should be open", () => {
-        wrapper.find("input").simulate("focus");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateSelectTextboxEvent(wrapper, "focus");
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           wrapper
             .find(StyledSelectList)
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
       });
     });
 
     describe("and that element is not part of the Select", () => {
       it("then the SelectList should be closed", () => {
-        wrapper.find("input").simulate("focus");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateSelectTextboxEvent(wrapper, "focus");
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).not.toBeVisible();
       });
     });
 
@@ -254,7 +258,7 @@ describe("MultiSelect", () => {
       mount(getSelect());
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
         wrapper.find(StyledSelectListContainer)
@@ -266,7 +270,7 @@ describe("MultiSelect", () => {
     it("renders SelectList with a disablePortal prop assigned", () => {
       const wrapper = renderSelect({ disablePortal: true });
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
       expect(wrapper.find(SelectList).props().disablePortal).toBe(true);
     });
   });
@@ -276,7 +280,7 @@ describe("MultiSelect", () => {
     (listPlacement) => {
       const wrapper = renderSelect({ listPlacement });
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
       expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
         listPlacement
       );
@@ -286,7 +290,7 @@ describe("MultiSelect", () => {
   it("the flipEnabled prop should be passed", () => {
     const wrapper = renderSelect({ flipEnabled: false });
 
-    wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+    simulateDropdownEvent(wrapper, "click");
     expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(false);
     wrapper.setProps({ flipEnabled: true });
     expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(true);
@@ -345,7 +349,7 @@ describe("MultiSelect", () => {
       const onFocusFn = jest.fn();
       const wrapper = renderSelect({ onFocus: onFocusFn });
 
-      wrapper.find("input").simulate("focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       expect(onFocusFn).toHaveBeenCalled();
     });
   });
@@ -355,7 +359,7 @@ describe("MultiSelect", () => {
       const onBlurFn = jest.fn();
       const wrapper = renderSelect({ onBlur: onBlurFn });
 
-      wrapper.find("input").simulate("blur");
+      simulateSelectTextboxEvent(wrapper, "blur");
       expect(onBlurFn).toHaveBeenCalled();
     });
 
@@ -364,9 +368,9 @@ describe("MultiSelect", () => {
         const onBlurFn = jest.fn();
         const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
 
-        wrapper.find("input").simulate("focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         wrapper.find(Option).first().simulate("mousedown");
-        wrapper.find("input").simulate("blur");
+        simulateSelectTextboxEvent(wrapper, "blur");
 
         expect(onBlurFn).not.toHaveBeenCalled();
       });
@@ -381,31 +385,29 @@ describe("MultiSelect", () => {
     });
 
     it("the SelectList should not be rendered", () => {
-      wrapper.find("input").simulate("focus");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+      simulateSelectTextboxEvent(wrapper, "focus");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).not.toBeVisible();
     });
 
     describe.each(["ArrowDown", "ArrowUp", "Home", "End"])(
       'and "%s" key has been pressed',
       (key) => {
         it("the SelectList should be rendered", () => {
-          wrapper.find("input").simulate("keydown", { key });
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+          simulateSelectTextboxEvent(wrapper, "keydown", { key });
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).toBeVisible();
         });
 
         describe("with readOnly prop set to true", () => {
           it("then the SelectList should not be rendered", () => {
             wrapper.setProps({ readOnly: true });
-            wrapper.update().find("input").simulate("keydown", { key });
-            wrapper
-              .find(Option)
-              .forEach((option) =>
-                expect(option.getDOMNode()).not.toBeVisible()
-              );
+            simulateSelectTextboxEvent(wrapper, "keydown", { key });
+            expect(
+              wrapper.find(StyledSelectListContainer).getDOMNode()
+            ).not.toBeVisible();
           });
         });
       }
@@ -413,19 +415,19 @@ describe("MultiSelect", () => {
 
     describe('and the "Enter" key has been pressed', () => {
       it("the SelectList should not be rendered", () => {
-        wrapper.find("input").simulate("keydown", { key: "Enter" });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+        simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).not.toBeVisible();
       });
 
       describe("with readOnly prop set to true", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
-          wrapper.update().find("input").simulate("keydown", { key: "Enter" });
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+          simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
         });
       });
     });
@@ -440,7 +442,7 @@ describe("MultiSelect", () => {
       const onKeyDownFn = jest.fn();
       const wrapper = renderSelect({ onKeyDown: onKeyDownFn });
 
-      wrapper.find("input").simulate("keyDown", expectedEventObject);
+      simulateSelectTextboxEvent(wrapper, "keydown", expectedEventObject);
 
       expect(onKeyDownFn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -462,7 +464,7 @@ describe("MultiSelect", () => {
           const wrapper = renderSelect({ defaultValue: ["opt2", "opt1"] });
 
           expect(wrapper.find(Pill)).toHaveLength(2);
-          wrapper.find("input").simulate("keyDown", keyDownEventObject);
+          simulateSelectTextboxEvent(wrapper, "keydown", keyDownEventObject);
           expect(wrapper.find(Pill)).toHaveLength(1);
           expect(wrapper.find(Pill).props().title).toBe("green");
         });
@@ -475,7 +477,7 @@ describe("MultiSelect", () => {
           });
 
           onChangeFn.mockReset();
-          wrapper.find("input").simulate("keyDown", keyDownEventObject);
+          simulateSelectTextboxEvent(wrapper, "keydown", keyDownEventObject);
           expect(onChangeFn).toHaveBeenCalled();
         });
 
@@ -488,7 +490,7 @@ describe("MultiSelect", () => {
             });
 
             onChangeFn.mockReset();
-            wrapper.find("input").simulate("keyDown", keyDownEventObject);
+            simulateSelectTextboxEvent(wrapper, "keydown", keyDownEventObject);
             expect(onChangeFn).not.toHaveBeenCalled();
           });
         });
@@ -505,13 +507,13 @@ describe("MultiSelect", () => {
 
         it("then the last value should be removed", () => {
           const wrapper = renderSelect({ defaultValue: ["opt2", "opt1"] });
-          wrapper.find("input").simulate("change", changeEventObject);
+          simulateSelectTextboxEvent(wrapper, "change", changeEventObject);
 
           act(() => {
             wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
           });
           expect(wrapper.update().find(Pill)).toHaveLength(3);
-          wrapper.find("input").simulate("keyDown", keyDownEventObject);
+          simulateSelectTextboxEvent(wrapper, "keydown", keyDownEventObject);
           expect(wrapper.find(Pill)).toHaveLength(2);
         });
       });
@@ -551,10 +553,10 @@ describe("MultiSelect", () => {
     it("the SelectList should not be rendered", () => {
       const wrapper = renderSelect();
 
-      wrapper.find("input").simulate("click");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+      simulateSelectTextboxEvent(wrapper, "click");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).not.toBeVisible();
     });
 
     describe('and the "onClick" prop is passed', () => {
@@ -562,7 +564,7 @@ describe("MultiSelect", () => {
         const onClickFn = jest.fn();
         const wrapper = renderSelect({ onClick: onClickFn });
 
-        wrapper.find("input").simulate("click");
+        simulateSelectTextboxEvent(wrapper, "click");
         expect(onClickFn).toHaveBeenCalled();
       });
     });
@@ -572,7 +574,7 @@ describe("MultiSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
-        wrapper.find("input").simulate("click");
+        simulateSelectTextboxEvent(wrapper, "click");
         expect(onOpenFn).not.toHaveBeenCalled();
       });
 
@@ -581,8 +583,8 @@ describe("MultiSelect", () => {
           const onOpenFn = jest.fn();
           const wrapper = renderSelect({ onOpen: onOpenFn });
 
-          wrapper.find("input").simulate("mouseDown");
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "mousedown");
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onOpenFn).not.toHaveBeenCalled();
         });
       });
@@ -593,24 +595,20 @@ describe("MultiSelect", () => {
     it("the SelectList should be rendered", () => {
       const wrapper = renderSelect();
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      simulateDropdownEvent(wrapper, "click");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).toBeVisible();
     });
 
     describe("twice", () => {
       it("the SelectList should not be rendered", () => {
         const wrapper = renderSelect();
-        const dropdown = wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first();
-        dropdown.simulate("click");
-        dropdown.simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+        simulateDropdownEvent(wrapper, "click");
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).not.toBeVisible();
       });
     });
 
@@ -619,11 +617,7 @@ describe("MultiSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
+        simulateDropdownEvent(wrapper, "click");
         expect(onOpenFn).toHaveBeenCalled();
       });
     });
@@ -633,11 +627,7 @@ describe("MultiSelect", () => {
         const onClickFn = jest.fn();
         const wrapper = renderSelect({ onClick: onClickFn });
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
+        simulateDropdownEvent(wrapper, "click");
         expect(onClickFn).toHaveBeenCalled();
       });
     });
@@ -648,10 +638,10 @@ describe("MultiSelect", () => {
       it("the SelectList should be rendered", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        wrapper.find("input").simulate("focus");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateSelectTextboxEvent(wrapper, "focus");
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -661,12 +651,10 @@ describe("MultiSelect", () => {
             const obj = { [prop]: true, openOnFocus: true };
             const wrapper = renderSelect(obj);
 
-            wrapper.find("input").simulate("focus");
-            wrapper
-              .find(Option)
-              .forEach((option) =>
-                expect(option.getDOMNode()).not.toBeVisible()
-              );
+            simulateSelectTextboxEvent(wrapper, "focus");
+            expect(
+              wrapper.find(StyledSelectListContainer).getDOMNode()
+            ).not.toBeVisible();
           });
         }
       );
@@ -679,7 +667,7 @@ describe("MultiSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -694,17 +682,17 @@ describe("MultiSelect", () => {
         });
 
         it("then that prop should have been called", () => {
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onOpenFn).toHaveBeenCalled();
         });
 
         describe("and with the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            wrapper.find("input").simulate("focus");
+            simulateSelectTextboxEvent(wrapper, "focus");
             onOpenFn.mockReset();
-            wrapper
-              .find(Option)
-              .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+            expect(
+              wrapper.find(StyledSelectListContainer).getDOMNode()
+            ).toBeVisible();
             wrapper.find("input").simulate("focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
@@ -712,8 +700,8 @@ describe("MultiSelect", () => {
 
         describe("and the focus triggered by mouseDown on the input", () => {
           it("then that prop should have been called", () => {
-            wrapper.find("input").simulate("mouseDown");
-            wrapper.find("input").simulate("focus");
+            simulateSelectTextboxEvent(wrapper, "mousedown");
+            simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).toHaveBeenCalled();
           });
         });
@@ -726,12 +714,8 @@ describe("MultiSelect", () => {
         const wrapper = renderSelect({ onOpen: onOpenFn, openOnFocus: true });
 
         it("then that prop should have been called", () => {
-          wrapper
-            .find(Textbox)
-            .find('[type="dropdown"]')
-            .first()
-            .simulate("mouseDown");
-          wrapper.find("input").simulate("focus");
+          simulateDropdownEvent(wrapper, "mousedown");
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onOpenFn).toHaveBeenCalled();
         });
       });
@@ -743,8 +727,8 @@ describe("MultiSelect", () => {
       const changeEventObject = { target: { value: "Foo" } };
       const wrapper = renderSelect();
 
-      wrapper.find("input").simulate("click");
-      wrapper.find("input").simulate("change", changeEventObject);
+      simulateSelectTextboxEvent(wrapper, "click");
+      simulateSelectTextboxEvent(wrapper, "change", changeEventObject);
       expect(wrapper.update().find(SelectList).prop("filterText")).toBe("Foo");
     });
 
@@ -753,7 +737,9 @@ describe("MultiSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
-        wrapper.find("input").simulate("change", { target: { value: "b" } });
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "b" },
+        });
 
         expect(onOpenFn).toHaveBeenCalled();
       });
@@ -788,16 +774,16 @@ describe("MultiSelect", () => {
     it("the SelectList should not be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
-      wrapper.find("input").simulate("focus");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      simulateSelectTextboxEvent(wrapper, "focus");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).toBeVisible();
       act(() => {
         wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
       });
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).toBeVisible();
     });
 
     describe('and the "onChange" prop is passed', () => {
@@ -809,7 +795,7 @@ describe("MultiSelect", () => {
           openOnFocus: true,
         });
 
-        wrapper.find("input").simulate("focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
         });
@@ -825,7 +811,7 @@ describe("MultiSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           onChangeFn.mockReset();
           act(() => {
             wrapper.find(SelectList).prop("onSelect")(
@@ -847,7 +833,7 @@ describe("MultiSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           onChangeFn.mockReset();
           act(() => {
             wrapper.find(SelectList).prop("onSelect")(
@@ -864,13 +850,13 @@ describe("MultiSelect", () => {
     it("then the SelectList should not be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
-      wrapper.find("input").simulate("focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       act(() => {
         wrapper.find(Option).first().simulate("click");
       });
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).toBeVisible();
     });
 
     describe('with the "onChange" prop passed', () => {
@@ -882,7 +868,7 @@ describe("MultiSelect", () => {
             defaultValue: ["opt1"],
           });
 
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           act(() => {
             wrapper.find(Option).first().simulate("click");
           });
@@ -906,7 +892,7 @@ describe("MultiSelect", () => {
             </MultiSelect>
           );
 
-          wrapper.find("input").simulate("focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           act(() => {
             wrapper.find(Option).first().simulate("click");
           });
@@ -922,9 +908,9 @@ describe("MultiSelect", () => {
       const onFilterChangeFn = jest.fn();
       const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
 
-      wrapper
-        .find("input")
-        .simulate("change", { target: { value: filterText } });
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: filterText },
+      });
       expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
     });
 
@@ -962,16 +948,16 @@ describe("MultiSelect", () => {
     it("the SelectList should be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
-      wrapper.find("input").simulate("focus");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      simulateSelectTextboxEvent(wrapper, "focus");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).toBeVisible();
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).not.toBeVisible();
     });
   });
 
@@ -997,14 +983,10 @@ describe("MultiSelect", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ value: ["opt1"], onChange: onChangeFn });
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
@@ -1028,7 +1010,7 @@ describe("MultiSelect", () => {
           });
 
           onChangeFn.mockReset();
-          wrapper.find("input").simulate("keyDown", keyDownEventObject);
+          simulateSelectTextboxEvent(wrapper, "keydown", keyDownEventObject);
           expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
         });
       }
@@ -1056,7 +1038,7 @@ describe("MultiSelect", () => {
 
     it("should persist the input value", () => {
       const wrapper = mount(<WrapperComponent />);
-      wrapper.find("input").simulate("focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       act(() => {
         wrapper.find(Option).first().simulate("click");
       });
@@ -1114,7 +1096,7 @@ describe("MultiSelect", () => {
     });
 
     it("calls the onChange callback when an update occurs after first render", () => {
-      wrapper.find("input").simulate("focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       act(() => {
         wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
       });
@@ -1151,6 +1133,8 @@ describe("aria-selected attribute for options", () => {
     });
 
     it("the selected options have aria-selected=true", () => {
+      simulateDropdownEvent(wrapper, "click");
+
       expect(
         wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
       ).toBe("true");
@@ -1161,6 +1145,8 @@ describe("aria-selected attribute for options", () => {
     });
 
     it("the not selected options have aria-selected=false", () => {
+      simulateDropdownEvent(wrapper, "click");
+
       expect(
         wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
       ).toBe("false");
@@ -1170,7 +1156,7 @@ describe("aria-selected attribute for options", () => {
   describe("when uncontrolled", () => {
     beforeEach(() => {
       wrapper = renderSelect({ openOnFocus: true });
-      wrapper.find("input").simulate("focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       act(() => {
         wrapper.find(Option).first().simulate("click");
         wrapper.find(Option).at(1).simulate("click");
@@ -1210,7 +1196,7 @@ describe("aria-selected attribute for options", () => {
 
 describe("coverage filler for else path", () => {
   const wrapper = renderSelect();
-  wrapper.find("input").simulate("blur");
+  simulateSelectTextboxEvent(wrapper, "blur");
 });
 
 describe("when maxWidth is passed", () => {
