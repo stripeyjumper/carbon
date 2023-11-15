@@ -11,19 +11,26 @@ interface StyledPillConfig {
     warning: StyledPillInnerConfigProps;
     positive: StyledPillInnerConfigProps;
     information: StyledPillInnerConfigProps;
+    neutralWhite: StyledPillInnerConfigProps;
   };
   tag: {
     primary: StyledPillInnerConfigProps;
   };
 }
 
-export default (): StyledPillConfig => {
+export default (isDarkBackground: boolean): StyledPillConfig => {
   return {
     status: {
       neutral: {
-        varietyColor: "var(--colorsSemanticNeutral500)",
-        buttonFocus: "var(--colorsSemanticNeutral600)",
-        content: "var(--colorsSemanticNeutralYang100)",
+        varietyColor: isDarkBackground
+          ? "var(--colorsSemanticNeutral400)"
+          : "var(--colorsSemanticNeutral500)",
+        buttonFocus: isDarkBackground
+          ? "var(--colorsSemanticNeutral500)"
+          : "var(--colorsSemanticNeutral600)",
+        content: isDarkBackground
+          ? "var(--colorsSemanticNeutralYin090)"
+          : "var(--colorsSemanticNeutralYang100)",
       },
       negative: {
         varietyColor: "var(--colorsSemanticNegative500)",
@@ -41,9 +48,18 @@ export default (): StyledPillConfig => {
         content: "var(--colorsSemanticPositiveYang100)",
       },
       information: {
-        varietyColor: "var(--colorsSemanticInfo500)",
-        buttonFocus: "var(--colorsSemanticInfo600)",
+        varietyColor: isDarkBackground
+          ? "var(--colorsSemanticInfo400)"
+          : "var(--colorsSemanticInfo500)",
+        buttonFocus: isDarkBackground
+          ? "var(--colorsSemanticInfo500)"
+          : "var(--colorsSemanticInfo600)",
         content: "var(--colorsSemanticInfoYang100)",
+      },
+      neutralWhite: {
+        varietyColor: "var(--colorsSemanticNeutralYang100)",
+        buttonFocus: "var(--colorsSemanticNeutralYin030)",
+        content: "var(--colorsSemanticNeutral500)",
       },
     },
     tag: {
