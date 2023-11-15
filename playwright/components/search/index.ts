@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import { SEARCH_COMPONENT, CROSS_ICON, SEARCH_ICON } from "./locators";
 import { BUTTON_DATA_COMPONENT_PREVIEW } from "../button/locators";
 import { BUTTON } from "../locators";
