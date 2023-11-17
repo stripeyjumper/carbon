@@ -63,78 +63,73 @@ export const Default: Story = () => {
     </ActionPopoverMenu>
   );
   return (
-    <div style={{ marginTop: "40px", height: "275px" }}>
-      <Box>
-        <ActionPopover onOpen={() => {}} onClose={() => {}}>
-          <ActionPopoverItem
-            disabled
-            icon="graph"
-            submenu={submenu}
-            onClick={() => {}}
-          >
-            Business
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-            Print Invoice
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
-            Download PDF
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="csv" onClick={() => {}}>
-            Download CSV
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem icon="delete" onClick={() => {}}>
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-        <ActionPopover>
-          <ActionPopoverItem icon="csv" onClick={() => {}}>
-            Download CSV
-          </ActionPopoverItem>
-        </ActionPopover>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="csv"
-            submenu={submenuWithIcons}
-            onClick={() => {}}
-          >
-            Download CSV
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box mt={40} height={275}>
+      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+        <ActionPopoverItem
+          disabled
+          icon="graph"
+          submenu={submenu}
+          onClick={() => {}}
+        >
+          Business
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          submenu={submenuWithIcons}
+          onClick={() => {}}
+        >
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 Default.storyName = "Default";
 
 export const Icons: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 Icons.storyName = "Icons";
 
 export const DisabledItems: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
+    <Box height={250}>
+      <ActionPopover>
           <ActionPopoverItem icon="email" onClick={() => {}}>
             Email Invoice
           </ActionPopoverItem>
@@ -159,120 +154,108 @@ export const DisabledItems: Story = () => {
             None
           </ActionPopoverItem>
         </ActionPopover>
-      </Box>
-    </div>
+    </Box>
   );
 };
 DisabledItems.storyName = "Disabled Items";
 
 export const MenuRightAligned: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover rightAlignMenu>
-          <ActionPopoverItem icon="email" disabled onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem icon="email" disabled onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 MenuRightAligned.storyName = "Menu Right Aligned";
 
 export const ContentAlignedRight: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover horizontalAlignment="right">
-          <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover horizontalAlignment="right">
+        <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 ContentAlignedRight.storyName = "Content Aligned Right";
 
 export const NoIcons: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 NoIcons.storyName = "No Icons";
 
 export const CustomMenuButton: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover
-          renderButton={({
-            tabIndex,
-            "data-element": dataElement,
-            ariaAttributes,
-          }) => (
-            <ActionPopoverMenuButton
-              buttonType="tertiary"
-              iconType="dropdown"
-              iconPosition="after"
-              size="small"
-              tabIndex={tabIndex}
-              data-element={dataElement}
-              ariaAttributes={ariaAttributes}
-            >
-              More
-            </ActionPopoverMenuButton>
-          )}
-        >
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-        <ActionPopover
-          renderButton={({ "data-element": dataElement }) => (
-            <Link onClick={() => {}} data-element={dataElement}>
-              More
-            </Link>
-          )}
-        >
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover
+        renderButton={({
+          tabIndex,
+          "data-element": dataElement,
+          ariaAttributes,
+        }) => (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            tabIndex={tabIndex}
+            data-element={dataElement}
+            ariaAttributes={ariaAttributes}
+          >
+            More
+          </ActionPopoverMenuButton>
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover
+        renderButton={({ "data-element": dataElement }) => (
+          <Link onClick={() => {}} data-element={dataElement}>
+            More
+          </Link>
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 CustomMenuButton.storyName = "Custom Menu Button";
 
 export const Submenu: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
+    <Box height={250}>
+      <ActionPopover>
           <ActionPopoverItem
             icon="print"
             onClick={() => {}}
@@ -296,37 +279,34 @@ export const Submenu: Story = () => {
             Delete
           </ActionPopoverItem>
         </ActionPopover>
-      </Box>
-    </div>
+    </Box>
   );
 };
 Submenu.storyName = "Submenu";
 
 export const DisabledSubmenu: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            disabled
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem
+          disabled
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 DisabledSubmenu.storyName = "Disabled Submenu";
@@ -342,19 +322,17 @@ export const SubmenuPositionedRight: Story = () => {
     </ActionPopoverMenu>
   );
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover submenuPosition="right">
-          <ActionPopoverItem icon="email" submenu={submenu}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem icon="delete" submenu={submenu}>
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover submenuPosition="right">
+        <ActionPopoverItem icon="email" submenu={submenu}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete" submenu={submenu}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 SubmenuPositionedRight.storyName = "Sub Menu Positioned Right";
@@ -364,101 +342,95 @@ SubmenuPositionedRight.parameters = {
 
 export const MenuOpeningAbove: Story = () => {
   return (
-    <div style={{ paddingTop: "120px", height: "250px" }}>
-      <Box>
-        <ActionPopover placement="top">
-          <ActionPopoverItem
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box pt={120} height={250}>
+      <ActionPopover placement="top">
+        <ActionPopoverItem
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 MenuOpeningAbove.storyName = "Menu Opening Above";
 
 export const KeyboardNavigation: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverItem disabled icon="csv" onClick={() => {}}>
-            Download CSV
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="pdf" onClick={() => {}}>
-            Download PDF
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 KeyboardNavigation.storyName = "Keyboard Navigation";
 
 export const KeyboardNavigationLeftAlignedSubmenu: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="csv"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Download
-          </ActionPopoverItem>
-          <ActionPopoverItem
-            icon="pdf"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          icon="pdf"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 KeyboardNavigationLeftAlignedSubmenu.storyName =
@@ -466,48 +438,46 @@ KeyboardNavigationLeftAlignedSubmenu.storyName =
 
 export const KeyboardNavigationRightAlignedSubmenu: Story = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="csv"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Download
-          </ActionPopoverItem>
-          <ActionPopoverItem
-            icon="pdf"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          icon="pdf"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 KeyboardNavigationRightAlignedSubmenu.storyName =
@@ -518,48 +488,40 @@ KeyboardNavigationRightAlignedSubmenu.parameters = {
 
 export const AdditionalOptions: Story = () => {
   return (
-    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-      <Box>
-        <ActionPopover rightAlignMenu>
-          <ActionPopoverItem onClick={() => {}}>
-            Enroll Device
-          </ActionPopoverItem>
-          <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}}>
-            Manage Devices
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box mt={40} height={275} maxWidth={800}>
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem onClick={() => {}}>Enroll Device</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}}>Manage Devices</ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 AdditionalOptions.storyName = "Additional Options";
 
 export const DownloadButton: Story = () => {
   return (
-    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-      <Box>
-        <ActionPopover rightAlignMenu>
-          <ActionPopoverItem download icon="download" href="example-img.jpg">
-            Download
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="settings" onClick={() => {}}>
-            Assign Owner
-          </ActionPopoverItem>
-          <ActionPopoverItem disabled icon="download" href="example-img.jpg">
-            Download
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box mt={40} height={275} maxWidth={800}>
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem download icon="download" href="example-img.jpg">
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="settings" onClick={() => {}}>
+          Assign Owner
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled icon="download" href="example-img.jpg">
+          Download
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 DownloadButton.storyName = "Download Button";
 
 export const InOverflowHiddenContainer: Story = () => {
   return (
-    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
+    <Box mt={40} height={275} maxWidth={800}>
       <Accordion title="Heading">
         <Box>
           <ActionPopover>
@@ -600,7 +562,7 @@ export const InOverflowHiddenContainer: Story = () => {
           </ActionPopover>
         </Box>
       </Accordion>
-    </div>
+    </Box>
   );
 };
 InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
@@ -611,7 +573,7 @@ export const InFlatTable: Story = () => {
     setHighlightedRow(id);
   };
   return (
-    <div style={{ paddingTop: "120px", height: "250px" }}>
+    <Box pt={120} height={250}>
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
@@ -694,7 +656,7 @@ export const InFlatTable: Story = () => {
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 InFlatTable.storyName = "In Flat Table";
