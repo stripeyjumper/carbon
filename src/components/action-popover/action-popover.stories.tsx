@@ -29,7 +29,7 @@ const styledSystemProps = generateStyledSystemProps({
 }) as Partial<ArgTypes<ActionPopoverProps>>;
 
 const meta: Meta<typeof ActionPopover> = {
-  title: "ActionPopover",
+  title: "Action Popover",
   component: ActionPopover,
   argTypes: {
     ...styledSystemProps,

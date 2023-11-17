@@ -12,16 +12,16 @@ export interface PreviewProps
     MarginProps {
   /** Children content to render in the component. */
   children?: React.ReactNode;
-  /* Provides more control over when in a loading state. */
+  /** Provides more control over when in a loading state. */
   loading?: boolean;
 }
 
-export const Preview = ({
+export function Preview({
   children,
   loading,
   lines = 1,
   ...props
-}: PreviewProps) => {
+}: PreviewProps) {
   const marginProps = filterStyledSystemMarginProps(props);
   const hasPlaceholder = loading === undefined ? !children : loading;
 
@@ -38,6 +38,6 @@ export const Preview = ({
   }
 
   return <StyledPreview {...marginProps}>{children}</StyledPreview>;
-};
+}
 
 export default Preview;

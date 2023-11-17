@@ -5,7 +5,7 @@ import { ButtonToggle, ButtonToggleGroup } from ".";
 import Box from "../box";
 
 const meta: Meta<typeof ButtonToggle> = {
-  title: "ButtonToggle",
+  title: "Button Toggle",
   component: ButtonToggle,
 };
 

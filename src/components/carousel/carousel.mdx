@@ -1,21 +1,29 @@
 import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs";
 
+import DeprecationWarning from "../../../../../.storybook/deprecationWarning";
+
 import * as SlideStories from "./slide/slide.stories";
 import * as CarouselStories from "./carousel.stories";
 
-<Meta title="Carousel" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Carousel"
+  parameters={{ info: { disable: true } }}
+  of={CarouselStories}
+/>
 
 # Carousel
 
 <DeprecationWarning>
-We've deprecated Carousel. It's no longer available in the Design System and we recommend that you do not use it in new products.
+  We've deprecated Carousel. It's no longer available in the Design System and
+  we recommend that you do not use it in new products.
 </DeprecationWarning>
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/0701e2-carousel-whats-new/b/248536"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 - Presents a series of images which the user can step through one-by-one, or quickly jump to a particular step.
@@ -45,7 +53,10 @@ import { Carousel, Slide } from "carbon-react/lib/components/carousel";
 
 ### Without slideSelectors
 
-<Canvas name="without slideSelectors" of={CarouselStories.WithoutSlideSelectors} />
+<Canvas
+  name="without slideSelectors"
+  of={CarouselStories.WithoutSlideSelectors}
+/>
 
 ## Props
 

@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 }) as Partial<ArgTypes<AdvancedColorPickerProps>>;
 
 const meta: Meta<typeof AdvancedColorPicker> = {
-  title: "AdvancedColorPicker",
+  title: "Advanced Color Picker",
   component: AdvancedColorPicker,
   argTypes: {
     ...styledSystemProps,

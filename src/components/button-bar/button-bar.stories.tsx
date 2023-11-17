@@ -17,7 +17,7 @@ const styledSystemProps = generateStyledSystemProps(
 ) as Partial<ArgTypes<ButtonBarProps>>;
 
 const meta: Meta<typeof ButtonBar> = {
-  title: "ButtonBar",
+  title: "Button Bar",
   component: ButtonBar,
   argTypes: {
     ...styledSystemProps,

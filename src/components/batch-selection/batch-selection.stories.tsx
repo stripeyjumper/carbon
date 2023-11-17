@@ -7,7 +7,7 @@ import Icon from "../icon";
 import Button from "../button";
 
 const meta: Meta<typeof BatchSelection> = {
-  title: "BatchSelection",
+  title: "Batch Selection",
   component: BatchSelection,
 };
 

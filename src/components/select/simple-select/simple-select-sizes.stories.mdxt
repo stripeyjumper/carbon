@@ -10,18 +10,12 @@ import * as stories from "./simple-select-sizes.stories";
 
 ### Small
 
-<Canvas>
-  <Story name="small" story={stories.Small} />
-</Canvas>
+<Canvas name="small" story={stories.Small} />
 
 ### Medium
 
-<Canvas>
-  <Story name="medium" story={stories.Medium} />
-</Canvas>
+<Canvas name="medium" story={stories.Medium} />
 
 ### Large
 
-<Canvas>
-  <Story name="large" story={stories.Large} />
-</Canvas>
+<Canvas name="large" story={stories.Large} />

@@ -6,7 +6,7 @@ import CarbonProvider from ".";
 import { sageTheme, mintTheme } from "../../style/themes";
 
 const meta: Meta<typeof CarbonProvider> = {
-  title: "CarbonProvider",
+  title: "Carbon Provider",
   component: CarbonProvider,
 };
 

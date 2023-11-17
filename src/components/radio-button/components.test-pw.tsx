@@ -2,7 +2,7 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
-import { RadioButtonGroupProps } from "./radio-button-group.component";
+import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
 import Typography from "../typography";
 
@@ -117,11 +117,10 @@ export const WithTooltipPositionOnRadioGroup: ComponentStory<
 
 const radioContainerWidth = 400;
 
-export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
+export function RadioButtonComponent(props: Partial<RadioButtonProps>) {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
-    <>
-      <div
+    <div
         style={{
           marginTop: "64px",
           marginLeft: "64px",
@@ -137,14 +136,13 @@ export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
           {...props}
         />
       </div>
-    </>
   );
-};
+}
 
-export const RadioButtonGroupComponent = ({
+export function RadioButtonGroupComponent({
   children,
   ...props
-}: Partial<RadioButtonGroupProps>) => {
+}: Partial<RadioButtonGroupProps>) {
   return (
     <div
       style={{
@@ -165,18 +163,18 @@ export const RadioButtonGroupComponent = ({
       </RadioButtonGroup>
     </div>
   );
-};
+}
 
-export const Default = () => (
-  <RadioButtonGroup name="legend-and-labels-group">
+export function Default() {
+  return <RadioButtonGroup name="legend-and-labels-group">
     <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
     <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
     <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
   </RadioButtonGroup>
-);
+}
 
-export const WithLegendAndLabels = () => (
-  <RadioButtonGroup
+export function WithLegendAndLabels() {
+  return <RadioButtonGroup
     name="legend-and-labels-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -200,10 +198,10 @@ export const WithLegendAndLabels = () => (
       labelHelp="third option"
     />
   </RadioButtonGroup>
-);
+}
 
-export const WithInlineLegend = () => (
-  <RadioButtonGroup
+export function WithInlineLegend() {
+  return <RadioButtonGroup
     name="inline-legend-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -214,10 +212,10 @@ export const WithInlineLegend = () => (
     <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
     <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
   </RadioButtonGroup>
-);
+}
 
-export const WithLeftMargin = () => (
-  <RadioButtonGroup
+export function WithLeftMargin() {
+  return <RadioButtonGroup
     name="left-margin-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -239,10 +237,10 @@ export const WithLeftMargin = () => (
       label="Radio Option 3"
     />
   </RadioButtonGroup>
-);
+}
 
-export const EnableAdaptiveBehaviour = () => (
-  <RadioButtonGroup
+export function EnableAdaptiveBehaviour() {
+  return <RadioButtonGroup
     name="enable-adaptive-behaviour-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -266,12 +264,12 @@ export const EnableAdaptiveBehaviour = () => (
       label="Radio Option 3"
     />
   </RadioButtonGroup>
-);
+}
 
 EnableAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
-export const DifferentLabelSpacing = () => (
-  <RadioButtonGroup
+export function DifferentLabelSpacing() {
+  return <RadioButtonGroup
     name="different-label-spacing-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -293,10 +291,10 @@ export const DifferentLabelSpacing = () => (
       label="Radio Option 3"
     />
   </RadioButtonGroup>
-);
+}
 
-export const InlineRadioButtons = () => (
-  <RadioButtonGroup
+export function InlineRadioButtons() {
+  return <RadioButtonGroup
     name="inline-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -306,10 +304,10 @@ export const InlineRadioButtons = () => (
     <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
     <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
   </RadioButtonGroup>
-);
+}
 
-export const ReverseRadioButtons = () => (
-  <RadioButtonGroup
+export function ReverseRadioButtons() {
+  return <RadioButtonGroup
     name="reverse-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -333,10 +331,10 @@ export const ReverseRadioButtons = () => (
       reverse
     />
   </RadioButtonGroup>
-);
+}
 
-export const DisableRadioButtons = () => (
-  <RadioButtonGroup
+export function DisableRadioButtons() {
+  return <RadioButtonGroup
     name="disable-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -360,10 +358,10 @@ export const DisableRadioButtons = () => (
       disabled
     />
   </RadioButtonGroup>
-);
+}
 
-export const WithFieldHelp = () => (
-  <RadioButtonGroup
+export function WithFieldHelp() {
+  return <RadioButtonGroup
     name="field-help-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -387,10 +385,10 @@ export const WithFieldHelp = () => (
       fieldHelp="Some help text for this input."
     />
   </RadioButtonGroup>
-);
+}
 
-export const WithLargeRadioButtons = () => (
-  <RadioButtonGroup
+export function WithLargeRadioButtons() {
+  return <RadioButtonGroup
     name="large-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -417,10 +415,10 @@ export const WithLargeRadioButtons = () => (
       fieldHelp="Some help text for this input."
     />
   </RadioButtonGroup>
-);
+}
 
-export const WithCustomStyledLabels = () => (
-  <RadioButtonGroup
+export function WithCustomStyledLabels() {
+  return <RadioButtonGroup
     name="custom-styled-label-group"
     onChange={() => console.log("change")}
     legend="Radio group legend"
@@ -459,4 +457,4 @@ export const WithCustomStyledLabels = () => (
       }
     />
   </RadioButtonGroup>
-);
+}

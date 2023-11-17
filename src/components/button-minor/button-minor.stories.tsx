@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps(
 ) as Partial<ArgTypes<ButtonMinorProps>>;
 
 const meta: Meta<typeof ButtonMinor> = {
-  title: "ButtonMinor",
+  title: "Button Minor",
   component: ButtonMinor,
   argTypes: {
     ...styledSystemProps,

@@ -2,7 +2,7 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
-import { RadioButtonGroupProps } from "./radio-button-group.component";
+import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
 
 export default {
@@ -147,8 +147,7 @@ const radioContainerWidth = 400;
 export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
-    <>
-      <div
+    <div
         style={{
           marginTop: "64px",
           marginLeft: "64px",
@@ -164,7 +163,6 @@ export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
           {...props}
         />
       </div>
-    </>
   );
 };
 

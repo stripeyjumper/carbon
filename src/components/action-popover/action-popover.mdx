@@ -1,5 +1,10 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs";
 
+import LinkTo from "@storybook/addon-links/react";
+
+import * as ActionPopoverMenuButtonStories from "./action-popover-menu-button/action-popover-menu-button.stories";
+import * as ActionPopoverItemStories from "./action-popover-item/action-popover-item.stories";
+import * as ActionPopoverMenuStories from "./action-popover-menu/action-popover-menu.stories";
 import * as ActionPopoverStories from "./action-popover.stories";
 
 <Meta
@@ -226,15 +231,15 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 
 ### ActionPopoverMenu Props
 
-<ArgTypes of={ActionPopoverMenu} />
+<ArgTypes of={ActionPopoverMenuStories} />
 
 ### ActionPopoverMenuButton Props
 
-<ArgTypes of={ActionPopoverMenuButton} />
+<ArgTypes of={ActionPopoverMenuButtonStories} />
 
 ### ActionPopoverItem Props
 
-<ArgTypes of={ActionPopoverItem} />
+<ArgTypes of={ActionPopoverItemStories} />
 
 ## Translation keys
 

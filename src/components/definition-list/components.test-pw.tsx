@@ -1,12 +1,12 @@
 import React from "react";
-import Dl, { DlProps } from "../definition-list/dl.component";
-import Dt from "../definition-list/dt.component";
-import Dd from "../definition-list/dd.component";
+import Dl, { DlProps } from "./dl.component";
+import Dt from "./dt/dt.component";
+import Dd from "./dd/dd.component";
 import Typography from "../typography";
 import Hr from "../hr";
 import Box from "../box";
 
-export const DLComponent = (props: Partial<DlProps>) => {
+export function DLComponent(props: Partial<DlProps>) {
   return (
     <div>
       <Dl data-element="dl" {...props}>
@@ -19,9 +19,9 @@ export const DLComponent = (props: Partial<DlProps>) => {
       </Dl>
     </div>
   );
-};
+}
 
-export const DLReactFragment = () => {
+export function DLReactFragment() {
   return (
     <Dl>
       {true && (
@@ -32,9 +32,9 @@ export const DLReactFragment = () => {
       )}
     </Dl>
   );
-};
+}
 
-export const DLBoxComponent = () => {
+export function DLBoxComponent() {
   return (
     <div>
       <Box data-element="box" width="65%" px={2} pt={4} pb={3}>
@@ -59,4 +59,4 @@ export const DLBoxComponent = () => {
       </Box>
     </div>
   );
-};
+}

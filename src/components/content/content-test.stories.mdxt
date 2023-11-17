@@ -41,9 +41,7 @@ export const ContentStory = ({
 
 ### Default
 
-<Canvas>
-  <Story
-    name="default"
+<Canvas name="default"
     args={{
       children: "An example of some content.",
       title: "Content Component",

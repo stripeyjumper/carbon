@@ -67,7 +67,7 @@ const getValidationType = ({ error, warning, info }: ValidationProps) => {
   return null;
 };
 
-export const ValidationIcon = ({
+export function ValidationIcon({
   error,
   warning,
   info,
@@ -82,7 +82,7 @@ export const ValidationIcon = ({
   tooltipPosition = "right",
   tooltipFlipOverrides,
   ...rest
-}: ValidationIconProps) => {
+}: ValidationIconProps) {
   const validationTooltipId = useRef(tooltipId || guid());
   const flipBehaviourCheck =
     Array.isArray(tooltipFlipOverrides) &&
@@ -158,6 +158,6 @@ export const ValidationIcon = ({
       />
     </ValidationIconStyle>
   );
-};
+}
 
 export default ValidationIcon;

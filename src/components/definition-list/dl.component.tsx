@@ -14,20 +14,20 @@ export interface DlProps extends SpaceProps, DlContextProps {
   w?: number;
 }
 
-const Dl = ({
+function Dl({
   children,
   w = 50,
   dtTextAlign = "right",
   ddTextAlign = "left",
   asSingleColumn = false,
   ...rest
-}: DlProps) => (
-  <StyledDl w={w} data-component="dl" asSingleColumn={asSingleColumn} {...rest}>
+}: DlProps) {
+  return <StyledDl w={w} data-component="dl" asSingleColumn={asSingleColumn} {...rest}>
     <DlContext.Provider value={{ asSingleColumn, dtTextAlign, ddTextAlign }}>
       {children}
     </DlContext.Provider>
   </StyledDl>
-);
+}
 
 Dl.displayName = "Dl";
 export default Dl;
