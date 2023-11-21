@@ -43,12 +43,8 @@ function renderFilteredOptionRows(
   return renderer(
     <FilteredTableListComponent multiColumn {...props}>
       <OptionRow text="amber" id="0" value="0">
-        <td>
-          <div />
-        </td>
-        <td>
-          <div />
-        </td>
+        <td>Amber</td>
+        <td>Light</td>
       </OptionRow>
       <OptionRow text="blue" id="1" value="1">
         <td>Blue</td>

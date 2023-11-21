@@ -17,7 +17,7 @@ const testData = CHARACTERS.STANDARD;
 const colorTypes = [
   "rgb(203, 55, 74)",
   "rgb(0, 96, 167)",
-  "rgb(0, 138, 33)",
+  "rgb(0, 130, 31)",
   "rgb(239, 103, 0)",
   "rgb(51, 91, 112)",
 ];

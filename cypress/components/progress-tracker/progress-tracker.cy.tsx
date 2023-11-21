@@ -83,7 +83,7 @@ context("Tests for ProgressTracker component", () => {
     it.each([
       [12, "rgb(51, 91, 112)"],
       [47, "rgb(51, 91, 112)"],
-      [100, "rgb(0, 138, 33)"],
+      [100, "rgb(0, 130, 31)"],
     ])("render component with %s% of progress", (progress, color) => {
       CypressMountWithProviders(
         <ProgressTrackerComponent progress={progress} />
