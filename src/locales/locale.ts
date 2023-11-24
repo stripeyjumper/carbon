@@ -111,6 +111,10 @@ interface Locale {
     on: () => string;
     off: () => string;
   };
+  stepFlow: {
+    stepLabel: (currentStep: number, totalSteps: number) => string;
+    screenReaderOnlyTitle: (title: string, currentStep: number, totalSteps: number, category?: string)=> string;
+  };
   textEditor: {
     tooltipMessages: {
       bold: () => string;
