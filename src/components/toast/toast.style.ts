@@ -4,6 +4,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import { MessageVariant } from "../message/message.component";
 
 const StyledPortal = styled(Portal)<{
   align?: "left" | "center" | "right";
@@ -84,7 +85,7 @@ const ToastColourVariants = {
   neutral: "var(--colorsSemanticNeutral500)",
 };
 
-type ToastVariants = "error" | "info" | "success" | "warning" | "neutral";
+type ToastVariants = MessageVariant;
 
 type ToastStyleProps = {
   align?: "left" | "center" | "right";
@@ -229,14 +230,6 @@ const StyledToastContent = styled.div<{
   padding: 8px 16px 8px 16px;
   white-space: pre-wrap;
   flex: 1;
-
-  .carbon-content__title {
-    margin-bottom: 2px;
-  }
-
-  .carbon-content__body {
-    margin-top: 0px;
-  }
 
   ${({ isNotice }) =>
     isNotice &&
