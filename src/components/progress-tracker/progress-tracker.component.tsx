@@ -152,6 +152,7 @@ const ProgressTracker = ({
         error={error}
       >
         <InnerBar
+          data-element="inner-bar"
           size={size}
           length={barLength}
           progress={progress}
