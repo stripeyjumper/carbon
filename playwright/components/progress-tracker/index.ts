@@ -1,4 +1,4 @@
-import type { Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { PROGRESS_TRACKER, PROGRESS_TRACKER_LINE } from "./locators";
 
 // component preview locators
