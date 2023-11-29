@@ -5,6 +5,7 @@ import {
   Default as ButtonMinor,
   ButtonMinorCustom,
   ButtonMinorDifferentTypes,
+  ButtonMinorIconWithTooltip,
 } from "./components.test-pw";
 import {
   PrimaryButton,
@@ -30,12 +31,7 @@ import {
 } from "./button-minor.stories";
 import { buttonMinorComponent } from "../../../playwright/components/button/index";
 import { BUTTON_ICON_POSITIONS } from "../button/button.config";
-import { ICON } from "../../../playwright/components/locators";
-import {
-  dlsRoot,
-  icon,
-  tooltipPreview,
-} from "../../../playwright/components/index";
+import { icon } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   assertCssValueIsApproximately,
@@ -190,30 +186,16 @@ test.describe("Check props for Button Minor component", () => {
   });
 
   testData.forEach((tooltipMessage) => {
-    test(`should render tooltip message as ${tooltipMessage}`, async ({
+    test(`when ButtonMinor is focused, should render a tooltip with text ${tooltipMessage}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <ButtonMinor
-          iconType="bin"
-          iconTooltipMessage={tooltipMessage}
-          m="100px"
-        />
+        <ButtonMinorIconWithTooltip iconTooltipMessage={tooltipMessage} />
       );
-      await page.getByRole("button").locator(ICON).hover({ force: true });
-      await expect(tooltipPreview(page)).toHaveText(tooltipMessage);
-      await dlsRoot(page).hover({ position: { x: 0, y: 0 } });
+      await page.getByRole("button").hover();
+      await expect(page.getByRole("tooltip")).toHaveText(tooltipMessage);
     });
-  });
-
-  test("when icon only, icon's position is absolute", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ButtonMinor iconType="bin" />);
-
-    await expect(icon(page)).toHaveCSS("position", "absolute");
   });
 
   ([

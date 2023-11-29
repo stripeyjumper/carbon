@@ -978,35 +978,14 @@ export const ButtonIconOnly = () => {
   );
 };
 
-export const ButtonIconTooltipMessage = () => {
+export const ButtonIconWithTooltip = ({
+  iconTooltipMessage,
+}: Pick<ButtonProps, "iconTooltipMessage">) => {
   return (
-    <Box>
-      <Button
-        mt={2}
-        ml={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        destructive
-        ml={2}
-        mt={2}
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        mt={2}
-        ml={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-    </Box>
+    <Button
+      iconType="bin"
+      iconTooltipMessage={iconTooltipMessage || "This is a tooltip"}
+      aria-label="Delete"
+    />
   );
 };

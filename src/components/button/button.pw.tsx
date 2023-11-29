@@ -6,13 +6,8 @@ import {
   buttonSubtextPreview,
   buttonDataComponent,
 } from "../../../playwright/components/button/index";
-import { ICON } from "../../../playwright/components/locators";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import {
-  dlsRoot,
-  icon,
-  tooltipPreview,
-} from "../../../playwright/components/index";
+import { icon } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 import Button, { ButtonProps } from "../../../src/components/button";
@@ -22,6 +17,7 @@ import {
   ButtonIconAfter,
   ButtonIconBefore,
   ButtonDefault,
+  ButtonIconWithTooltip,
   DarkBackgroundButtonDisabled,
   DarkBackgroundButtonFullWidth,
   DarkBackgroundButtonIconAfter,
@@ -80,21 +76,16 @@ test.describe("Button component", () => {
   });
 
   testData.forEach((tooltipMessage) => {
-    test(`should render tooltip message with ${tooltipMessage} special characters`, async ({
+    test(`when Button is focused, should render a tooltip with text ${tooltipMessage}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <Button
-          iconType="bin"
-          iconTooltipMessage={tooltipMessage}
-          aria-label="bin"
-        />
+        <ButtonIconWithTooltip iconTooltipMessage={tooltipMessage} />
       );
 
-      await page.getByRole("button").locator(ICON).hover({ force: true });
-      await expect(tooltipPreview(page)).toHaveText(tooltipMessage);
-      await dlsRoot(page).hover({ position: { x: 0, y: 0 } });
+      await page.getByRole("button").hover();
+      await expect(page.getByRole("tooltip")).toHaveText(tooltipMessage);
     });
   });
 

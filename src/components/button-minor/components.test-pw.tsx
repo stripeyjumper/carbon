@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonMinor, { ButtonMinorProps } from "./button-minor.component";
+import ButtonMinor, { ButtonMinorProps } from ".";
 
 const Default = (props: ButtonMinorProps) => <ButtonMinor {...props} />;
 
@@ -22,4 +22,19 @@ const ButtonMinorDifferentTypes = (props: ButtonMinorProps) => {
   );
 };
 
-export { Default, ButtonMinorCustom, ButtonMinorDifferentTypes };
+const ButtonMinorIconWithTooltip = ({
+  iconTooltipMessage,
+}: Pick<ButtonMinorProps, "iconTooltipMessage">) => (
+  <ButtonMinor
+    iconType="bin"
+    iconTooltipMessage={iconTooltipMessage || "This is a tooltip"}
+    aria-label="Delete"
+  />
+);
+
+export {
+  Default,
+  ButtonMinorCustom,
+  ButtonMinorDifferentTypes,
+  ButtonMinorIconWithTooltip,
+};
