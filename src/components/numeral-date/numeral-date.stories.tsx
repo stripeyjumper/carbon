@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
 import NumeralDate from ".";
+import Box from "../box";
 import CarbonProvider from "../carbon-provider";
 
 export const Default: ComponentStory<typeof NumeralDate> = () => (
@@ -120,37 +121,39 @@ export const NewValidation: ComponentStory<typeof NumeralDate> = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        label="Validation as string - Error"
-        labelHelp="Label help"
-        error="Error Message (Fix is required)"
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
+      <Box m={2}>
+        <NumeralDate
+          label="Validation as string - Error"
+          labelHelp="Label help"
+          error="Error Message (Fix is required)"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        />
 
-      <NumeralDate
-        label="Validation as boolean - Error"
-        labelHelp="Label help"
-        error
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
+        <NumeralDate
+          label="Validation as boolean - Error"
+          labelHelp="Label help"
+          error
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        />
 
-      <NumeralDate
-        label="Validation as string - Warning"
-        labelHelp="Label help"
-        warning="Warning Message (Fix is optional)"
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
+        <NumeralDate
+          label="Validation as string - Warning"
+          labelHelp="Label help"
+          warning="Warning Message (Fix is optional)"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        />
 
-      <NumeralDate
-        label="Validation as boolean - Warning"
-        labelHelp="Label help"
-        warning
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
+        <NumeralDate
+          label="Validation as boolean - Warning"
+          labelHelp="Label help"
+          warning
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        />
+      </Box>
     </CarbonProvider>
   );
 };

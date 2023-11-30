@@ -23,6 +23,7 @@ import {
 import {
   numeralDateComponent,
   numeralDateInputByPosition,
+  numeralDateLabelByPosition,
 } from "../../locators/numeralDate";
 
 import {
@@ -288,26 +289,27 @@ context("Tests for NumeralDate component", () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["dd", "mm", "yyyy"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "aria-label", "Day");
-      numeralDateInputByPosition(1).should("have.attr", "aria-label", "Month");
-      numeralDateInputByPosition(2).should("have.attr", "aria-label", "Year");
+
+      numeralDateLabelByPosition(0).should("have.text", "Day");
+      numeralDateLabelByPosition(1).should("have.text", "Month");
+      numeralDateLabelByPosition(2).should("have.text", "Year");
     });
 
     it('should render NumeralDate with `["mm", "dd", "yyyy"]` dateFormat prop', () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["mm", "dd", "yyyy"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "aria-label", "Month");
-      numeralDateInputByPosition(1).should("have.attr", "aria-label", "Day");
-      numeralDateInputByPosition(2).should("have.attr", "aria-label", "Year");
+      numeralDateLabelByPosition(0).should("have.text", "Month");
+      numeralDateLabelByPosition(1).should("have.text", "Day");
+      numeralDateLabelByPosition(2).should("have.text", "Year");
     });
 
     it('should render NumeralDate with `["dd", "mm"]` dateFormat prop', () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["dd", "mm"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "aria-label", "Day");
-      numeralDateInputByPosition(1).should("have.attr", "aria-label", "Month");
+      numeralDateLabelByPosition(0).should("have.text", "Day");
+      numeralDateLabelByPosition(1).should("have.text", "Month");
       numeralDateInputByPosition(2).should("not.exist");
     });
 
@@ -315,8 +317,8 @@ context("Tests for NumeralDate component", () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["mm", "dd"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "aria-label", "Month");
-      numeralDateInputByPosition(1).should("have.attr", "aria-label", "Day");
+      numeralDateLabelByPosition(0).should("have.text", "Month");
+      numeralDateLabelByPosition(1).should("have.text", "Day");
       numeralDateInputByPosition(2).should("not.exist");
     });
 
@@ -324,8 +326,8 @@ context("Tests for NumeralDate component", () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["mm", "yyyy"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "aria-label", "Month");
-      numeralDateInputByPosition(1).should("have.attr", "aria-label", "Year");
+      numeralDateLabelByPosition(0).should("have.text", "Month");
+      numeralDateLabelByPosition(1).should("have.text", "Year");
       numeralDateInputByPosition(2).should("not.exist");
     });
 

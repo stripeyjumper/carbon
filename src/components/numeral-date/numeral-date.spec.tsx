@@ -7,6 +7,7 @@ import NumeralDate, {
   ValidDateFormat,
 } from "./numeral-date.component";
 import Textbox from "../textbox";
+import Typography from "../typography";
 import { StyledNumeralDate } from "./numeral-date.style";
 import {
   assertStyleMatch,
@@ -376,9 +377,10 @@ describe("NumeralDate", () => {
 
   it("has proper default dateFormat prop", () => {
     wrapper = renderWrapper({ dateFormat: undefined });
-    expect(wrapper.find(Textbox).at(0).props()["aria-label"]).toBe("Day");
-    expect(wrapper.find(Textbox).at(1).props()["aria-label"]).toBe("Month");
-    expect(wrapper.find(Textbox).at(2).props()["aria-label"]).toBe("Year");
+
+    expect(wrapper.find(Typography).at(0).text()).toBe("Day");
+    expect(wrapper.find(Typography).at(1).text()).toBe("Month");
+    expect(wrapper.find(Typography).at(2).text()).toBe("Year");
   });
 
   describe("Clicking off the component", () => {
@@ -460,7 +462,7 @@ describe("NumeralDate", () => {
       const input = wrapper.find("input").at(0);
       const event = { key: "1", preventDefault: preventDefaultMock };
       act(() => {
-        input.simulate("keypress", event);
+        input.simulate("keydown", event);
       });
       expect(preventDefaultMock).not.toHaveBeenCalled();
     });
@@ -469,7 +471,7 @@ describe("NumeralDate", () => {
       const input = wrapper.find("input").at(0);
       const event = { key: key[0], preventDefault: preventDefaultMock };
       act(() => {
-        input.simulate("keypress", event);
+        input.simulate("keydown", event);
       });
       expect(preventDefaultMock).toHaveBeenCalled();
     });

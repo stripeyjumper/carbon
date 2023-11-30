@@ -20,6 +20,7 @@ import { NewValidationContext } from "../carbon-provider/carbon-provider.compone
 import NumeralDateContext from "./numeral-date-context";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import Logger from "../../__internal__/utils/logger";
+import Locale from "../../locales/locale";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -168,14 +169,14 @@ const validations: ValidationsObject = {
   yyyy: isYearValid,
 };
 
-const getDateLabel = (datePart: string) => {
+const getDateLabel = (datePart: string, locale: Locale) => {
   switch (datePart) {
     case "mm":
-      return "Month";
+      return locale.numeralDate.labels.month();
     case "yyyy":
-      return "Year";
+      return locale.numeralDate.labels.year();
     default:
-      return "Day";
+      return locale.numeralDate.labels.day();
   }
 };
 
@@ -215,7 +216,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   yearRef,
   ...rest
 }: NumeralDateProps<DateType>) => {
-  const l = useLocale();
+  const locale = useLocale();
   const { validationRedesignOptIn } = useContext(NewValidationContext);
 
   const { current: uniqueId } = useRef(id || guid());
@@ -223,6 +224,8 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const initialValue = isControlled.current ? value : defaultValue;
 
   const refs = useRef<(HTMLInputElement | null)[]>(dateFormat.map(() => null));
+
+  const labelIds = useRef([guid(), guid(), guid()]);
 
   const [internalMessages, setInternalMessages] = useState<DateType>({
     ...((Object.fromEntries(
@@ -254,9 +257,9 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   }, [value]);
 
   const validationMessages = {
-    dd: l.numeralDate.validation.day(),
-    mm: l.numeralDate.validation.month(),
-    yyyy: l.numeralDate.validation.year(),
+    dd: locale.numeralDate.validation.day(),
+    mm: locale.numeralDate.validation.month(),
+    yyyy: locale.numeralDate.validation.year(),
   };
 
   const [dateValue, setDateValue] = useState<DateType>({
@@ -276,7 +279,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     },
   });
 
-  const onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const isValidKey =
       Events.isNumberKey(event) ||
       Events.isTabKey(event) ||
@@ -403,12 +406,13 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
 
             <StyledNumeralDate
               name={name}
-              onKeyPress={onKeyPress}
+              onKeyDown={onKeyDown}
               data-component="numeral-date"
             >
               {dateFormat.map((datePart, index) => {
                 const isEnd = index === dateFormat.length - 1;
 
+                const labelId = labelIds.current[index];
                 const validation = internalError || internalWarning || info;
                 const isStringValidation = typeof validation === "string";
                 const hasValidationIcon =
@@ -447,8 +451,8 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                       }
                     >
                       <FormSpacingProvider marginBottom={undefined}>
-                        <Typography mb="4px">
-                          {getDateLabel(datePart)}
+                        <Typography mb="4px" id={labelId}>
+                          {getDateLabel(datePart, locale)}
                         </Typography>
                         <Textbox
                           {...(index === 0 && { id: uniqueId })}
@@ -485,7 +489,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                             })}
                           size={size}
                           tooltipPosition={tooltipPosition}
-                          aria-label={getDateLabel(datePart)}
+                          aria-labelledby={labelId}
                         />
                       </FormSpacingProvider>
                     </StyledDateField>
