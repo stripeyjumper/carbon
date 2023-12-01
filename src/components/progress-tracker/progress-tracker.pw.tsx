@@ -16,55 +16,33 @@ import {
   checkCSSOutline,
 } from "../../../playwright/support/helper";
 import { ProgressTrackerProps } from "../progress-tracker";
-import { ProgressTrackerComponent } from "./components.test-pw";
+import {
+  AccessibilityExample,
+  AccessibilityExampleTwo,
+  ProgressTrackerComponent,
+} from "./components.test-pw";
 import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
-
-const DEFAULT_PROP_VALUE = 50;
-
-const checkPropName = (propName: string) =>
-  propName.endsWith("now") &&
-  propName.endsWith("min") &&
-  propName.endsWith("max");
-
-const getProps = (propName: string, shouldBeDefault: boolean) => {
-  if (!shouldBeDefault) {
-    return {
-      [propName]: DEFAULT_PROP_VALUE,
-    };
-  }
-  return {
-    [propName]: CHARACTERS.STANDARD,
-  };
-};
 
 test.describe("Check props for ProgressTracker component", () => {
   ([
-    "aria-label",
-    "aria-describedby",
-    "aria-valuenow",
-    "aria-valuemin",
-    "aria-valuemax",
-    "aria-valuetext",
-  ] as const).forEach((propName) => {
-    test.describe(`When ${propName} prop is passed`, () => {
-      test(`verify that the ${propName} is set to cypress-standard`, async ({
-        mount,
-        page,
-      }) => {
-        const isNowMinOrMax = checkPropName(propName);
-        const props = getProps(propName, isNowMinOrMax);
-        const assertion = isNowMinOrMax
-          ? CHARACTERS.STANDARD
-          : DEFAULT_PROP_VALUE;
+    ["aria-label", CHARACTERS.STANDARD],
+    ["aria-describedby", CHARACTERS.STANDARD],
+    ["aria-valuenow", 50],
+    ["aria-valuemin", 50],
+    ["aria-valuemax", 50],
+    ["aria-valuetext", CHARACTERS.STANDARD],
+  ] as const).forEach(([propName, value]) => {
+    test(`when ${propName} prop is passed, sets the correct ARIA attribute on the ProgressTracker`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ProgressTrackerComponent {...{ [propName]: value }} />);
 
-        await mount(<ProgressTrackerComponent {...props} />);
-
-        const progressTrackerComponentElement = progressTrackerComponent(page);
-        await expect(progressTrackerComponentElement).toHaveAttribute(
-          propName,
-          String(assertion)
-        );
-      });
+      const progressTrackerComponentElement = progressTrackerComponent(page);
+      await expect(progressTrackerComponentElement).toHaveAttribute(
+        propName,
+        String(value)
+      );
     });
   });
 
@@ -150,20 +128,24 @@ test.describe("Check props for ProgressTracker component", () => {
     );
   });
 
-  ([true, false] as const).forEach((boolean) => {
-    test(`render component with showDefaultLabels is set to ${boolean}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ProgressTrackerComponent showDefaultLabels={boolean} />);
-      const labelElement = page.getByText("50%");
+  test("should render label when showDefaultLabels prop is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ProgressTrackerComponent showDefaultLabels />);
+    const labelElement = page.getByText("50%");
 
-      if (boolean) {
-        await expect(labelElement).toBeInViewport();
-      } else {
-        await expect(labelElement).not.toBeInViewport();
-      }
-    });
+    await expect(labelElement).toBeInViewport();
+  });
+
+  test("should not render label when showDefaultLabels prop is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ProgressTrackerComponent showDefaultLabels={false} />);
+    const labelElement = page.getByText("50%");
+
+    await expect(labelElement).not.toBeInViewport();
   });
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -225,33 +207,20 @@ test.describe("Check props for ProgressTracker component", () => {
     }
   );
 
-  ([
-    ["top", 0, 2],
-    ["bottom", 1, 3],
-  ] as [ProgressTrackerProps["labelsPosition"], number, number][]).forEach(
-    ([labelsPosition, minValIndex, maxValIndex]) => {
-      test(`render component with labelsPosition is set to ${labelsPosition}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ProgressTrackerComponent labelsPosition={labelsPosition} />
-        );
+  (["top", "bottom"] as const).forEach((labelsPosition) => {
+    test(`render component with labelsPosition is set to ${labelsPosition}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ProgressTrackerComponent labelsPosition={labelsPosition} />);
 
-        const progressTrackerMinValElementIndex = progressTrackerMinVal(
-          page,
-          minValIndex
-        );
-        await expect(progressTrackerMinValElementIndex).toHaveText("50%");
+      const progressTrackerMinValElementIndex = progressTrackerMinVal(page);
+      await expect(progressTrackerMinValElementIndex).toHaveText("50%");
 
-        const progressTrackerMaxValElementIndex = progressTrackerMaxVal(
-          page,
-          maxValIndex
-        );
-        await expect(progressTrackerMaxValElementIndex).toHaveText("100%");
-      });
-    }
-  );
+      const progressTrackerMaxValElementIndex = progressTrackerMaxVal(page);
+      await expect(progressTrackerMaxValElementIndex).toHaveText("100%");
+    });
+  });
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
     (description) => {
@@ -290,26 +259,22 @@ test.describe("Check props for ProgressTracker component", () => {
 });
 
 test.describe("Accessibility tests", () => {
-  ([
-    "aria-label",
-    "aria-describedby",
-    "aria-valuenow",
-    "aria-valuemin",
-    "aria-valuemax",
-    "aria-valuetext",
-  ] as const).forEach((propName) => {
-    test.describe(`when ${propName} prop is passed`, () => {
-      test(`check the accessibility when the ${propName} is set to cypress-standard`, async ({
-        mount,
-        page,
-      }) => {
-        const isNowMinOrMax = checkPropName(propName);
-        const props = getProps(propName, isNowMinOrMax);
-        await mount(<ProgressTrackerComponent {...props} />);
+  test(`should check the accessibility of Accessibility Example`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AccessibilityExample />);
 
-        await checkAccessibility(page);
-      });
-    });
+    await checkAccessibility(page);
+  });
+
+  test(`should check the accessibility of Accessibility Example Two`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AccessibilityExampleTwo />);
+
+    await checkAccessibility(page);
   });
 
   ([
