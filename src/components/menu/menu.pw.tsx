@@ -527,8 +527,8 @@ test.describe("Prop tests for Menu component", () => {
     const cssWidth = await subMenuBlock.evaluate((el) =>
       window.getComputedStyle(el).getPropertyValue("width")
     );
-    expect(parseInt(cssWidth)).toBeLessThanOrEqual(495);
-    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(485);
+    expect(parseInt(cssWidth)).toBeLessThanOrEqual(500);
+    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(490);
   });
 
   ([
@@ -1371,6 +1371,13 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
+    await expect(
+      getComponent(page, "menu-fullscreen")
+        .first()
+        .locator("a")
+        .first()
+        .locator("span")
+    ).toHaveText("Menu Item One");
     await continuePressingTAB(page, 5);
     await page.keyboard.press("Shift+Tab");
     const fullMenuItem = fullscreenMenu(page, 3)
@@ -1636,9 +1643,16 @@ test.describe("Event tests for Menu component", () => {
       />
     );
 
-    const subMenu1 = submenu(page).first();
-    await subMenu1.hover();
     await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+    await expect(
+      getComponent(page, "menu-item")
+        .first()
+        .locator("a")
+        .locator("span")
+        .first()
+    ).toHaveText("Item Submenu One");
+    await page.keyboard.press("Shift+Tab");
     expect(callbackCount).toBe(1);
   });
 

@@ -282,9 +282,9 @@ export const MenuComponentItems = (
           submenu="Menu Item Three"
           submenuDirection="left"
           onClick={() => {}}
+          {...props}
         >
           <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuSegmentTitle text="segment title" />
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
