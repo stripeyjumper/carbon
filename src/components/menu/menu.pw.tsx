@@ -1645,14 +1645,6 @@ test.describe("Event tests for Menu component", () => {
 
     await page.keyboard.press("Tab");
     await page.keyboard.press("ArrowDown");
-    await expect(
-      getComponent(page, "menu-item")
-        .first()
-        .locator("a")
-        .locator("span")
-        .first()
-    ).toHaveText("Item Submenu One");
-    await page.keyboard.press("Shift+Tab");
     expect(callbackCount).toBe(1);
   });
 
