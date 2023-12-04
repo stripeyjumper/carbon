@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 
+import { Locator } from "@playwright/test";
 import {
   progressTrackerComponent,
   progressTrackerCustomValuePreposition,
@@ -207,19 +208,39 @@ test.describe("Check props for ProgressTracker component", () => {
     }
   );
 
-  (["top", "bottom"] as const).forEach((labelsPosition) => {
-    test(`render component with labelsPosition is set to ${labelsPosition}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ProgressTrackerComponent labelsPosition={labelsPosition} />);
+  const getYValue = (locator: Locator) =>
+    locator.evaluate((element) => element.getBoundingClientRect().y);
 
-      const progressTrackerMinValElementIndex = progressTrackerMinVal(page);
-      await expect(progressTrackerMinValElementIndex).toHaveText("50%");
+  test(`should position current value label below tracker line when labelsPosition prop is "top"`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ProgressTrackerComponent labelsPosition="top" />);
 
-      const progressTrackerMaxValElementIndex = progressTrackerMaxVal(page);
-      await expect(progressTrackerMaxValElementIndex).toHaveText("100%");
-    });
+    const currentValueLabel = progressTrackerMinVal(page);
+    const trackerLine = progressTrackerLine(page);
+
+    await expect(currentValueLabel).toBeVisible(); // assert label is visible before checking bounding box
+    await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
+    expect(await getYValue(currentValueLabel)).toBeLessThan(
+      await getYValue(trackerLine)
+    );
+  });
+
+  test(`should position current value label below tracker line when labelsPosition prop is "bottom"`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ProgressTrackerComponent labelsPosition="bottom" />);
+
+    const currentValueLabel = progressTrackerMinVal(page);
+    const trackerLine = progressTrackerLine(page);
+
+    await expect(currentValueLabel).toBeVisible(); // assert label is visible before checking bounding box
+    await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
+    expect(await getYValue(currentValueLabel)).toBeGreaterThan(
+      await getYValue(trackerLine)
+    );
   });
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
