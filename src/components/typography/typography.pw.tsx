@@ -2,15 +2,13 @@ import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import Typography, {
-  TypographyProps,
-} from "../../../src/components/typography";
+import Typography from "../typography";
 import {
   ListComponent,
   ScreenReaderOnly,
   Truncate,
   Variants,
-} from "../../../src/components/typography/components.test-pw";
+} from "./components.test-pw";
 
 const testDataStandard = CHARACTERS.STANDARD;
 const VARIANT_TYPES = [
@@ -35,7 +33,7 @@ const VARIANT_TYPES = [
   "em",
   "ul",
   "ol",
-];
+] as const;
 
 type VariantTypes = typeof VARIANT_TYPES[number];
 
@@ -164,8 +162,8 @@ const getDecoration = (variant: VariantTypes) => {
 };
 
 test.describe("should check Typography component properties", () => {
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check variant prop set to ${variant} for Typography component`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check variant prop set to ${variant}`, async ({
       mount,
       page,
     }) => {
@@ -173,15 +171,13 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElement = getAs(String(variant));
-      const cyElement = await page.locator(variantElement);
-
-      await expect(cyElement).toHaveText(testDataStandard);
+      const typographyElement = page.locator(getAs(variant));
+      await expect(typographyElement).toHaveText(testDataStandard);
     });
   });
 
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check font-size for ${variant} variant prop for Typography component`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check font-size for ${variant} variant prop`, async ({
       mount,
       page,
     }) => {
@@ -189,16 +185,15 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElem = getAs(String(variant));
-      const fontSize = getSize(String(variant));
-      const cyElement = await page.locator(variantElem);
+      const fontSize = getSize(variant);
+      const typographyElement = page.locator(getAs(variant));
 
-      await expect(cyElement).toHaveCSS("font-size", fontSize);
+      await expect(typographyElement).toHaveCSS("font-size", fontSize);
     });
   });
 
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check line-height for ${variant} variant prop for Typography component`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check line-height for ${variant} variant prop`, async ({
       mount,
       page,
     }) => {
@@ -206,16 +201,15 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElem = getAs(String(variant));
-      const lineHeight = getLineHeight(String(variant));
-      const cyElement = await page.locator(variantElem);
+      const lineHeight = getLineHeight(variant);
+      const typographyElement = page.locator(getAs(variant));
 
-      await expect(cyElement).toHaveCSS("line-height", lineHeight);
+      await expect(typographyElement).toHaveCSS("line-height", lineHeight);
     });
   });
 
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check font-weight for ${variant} variant prop for Typography component`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check font-weight for ${variant} variant prop`, async ({
       mount,
       page,
     }) => {
@@ -223,16 +217,15 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElem = getAs(String(variant));
-      const fontWeight = getWeight(String(variant));
-      const cyElement = await page.locator(variantElem);
+      const fontWeight = getWeight(variant);
+      const typographyElement = page.locator(getAs(variant));
 
-      await expect(cyElement).toHaveCSS("font-weight", fontWeight);
+      await expect(typographyElement).toHaveCSS("font-weight", fontWeight);
     });
   });
 
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check text-transform for ${variant} variant prop for Typography component`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check text-transform for ${variant} variant prop`, async ({
       mount,
       page,
     }) => {
@@ -240,16 +233,18 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElem = getAs(String(variant));
-      const textTransform = getTransform(String(variant));
-      const cyElement = await page.locator(variantElem);
+      const textTransform = getTransform(variant);
+      const typographyElement = page.locator(getAs(variant));
 
-      await expect(cyElement).toHaveCSS("text-transform", textTransform);
+      await expect(typographyElement).toHaveCSS(
+        "text-transform",
+        textTransform
+      );
     });
   });
 
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check text-decoration-line for ${variant} variant prop for Typography component`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check text-decoration-line for ${variant} variant prop`, async ({
       mount,
       page,
     }) => {
@@ -257,19 +252,18 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElem = getAs(String(variant));
-      const textDecorationLine = getDecoration(String(variant));
-      const cyElement = await page.locator(variantElem);
+      const textDecorationLine = getDecoration(variant);
+      const typographyElement = page.locator(getAs(variant));
 
-      await expect(cyElement).toHaveCSS(
+      await expect(typographyElement).toHaveCSS(
         "text-decoration-line",
         textDecorationLine
       );
     });
   });
 
-  (VARIANT_TYPES as TypographyProps["variant"][]).forEach((variant) => {
-    test(`should check text-align for ${variant} variant prop for Typography component when set`, async ({
+  VARIANT_TYPES.forEach((variant) => {
+    test(`should check text-align for ${variant} variant prop when set`, async ({
       mount,
       page,
     }) => {
@@ -277,33 +271,31 @@ test.describe("should check Typography component properties", () => {
         <Typography variant={variant}>{testDataStandard}</Typography>
       );
 
-      const variantElem = getAs(String(variant));
-      const textDecorationLine = getDecoration(String(variant));
-      const cyElement = await page.locator(variantElem);
+      const textDecorationLine = getDecoration(variant);
+      const typographyElement = page.locator(getAs(variant));
 
-      await expect(cyElement).toHaveCSS(
+      await expect(typographyElement).toHaveCSS(
         "text-decoration-line",
         textDecorationLine
       );
     });
   });
 
-  (["ol", "ul"] as const).forEach((as) => {
+  ["ol", "ul"].forEach((as) => {
     test(`should check as prop set to ${as} for List component`, async ({
       mount,
       page,
     }) => {
       await mount(<ListComponent as={as} />);
 
-      const cyElement = await page.locator(as);
+      const typographyElement = page.locator(as);
 
-      await expect(cyElement).toBeVisible();
-      await expect(cyElement).toBeVisible();
+      await expect(typographyElement).toBeVisible();
     });
   });
 
-  ([[true], [false]] as const).forEach(([truncate]) => {
-    test(`should check truncate prop set to ${truncate} for Typography component`, async ({
+  [true, false].forEach((truncate) => {
+    test(`should check truncate prop set to ${truncate}`, async ({
       mount,
       page,
     }) => {
@@ -320,17 +312,20 @@ test.describe("should check Typography component properties", () => {
         </div>
       );
 
-      const cyElement = await page.locator("h1");
+      const typographyElement = page.locator("h1");
 
       if (truncate) {
-        await expect(cyElement).toHaveCSS("text-overflow", "ellipsis");
+        await expect(typographyElement).toHaveCSS("text-overflow", "ellipsis");
       } else {
-        await expect(cyElement).not.toHaveCSS("text-overflow", "ellipsis");
+        await expect(typographyElement).not.toHaveCSS(
+          "text-overflow",
+          "ellipsis"
+        );
       }
     });
   });
 
-  (["left", "center", "right", "justify"] as const).forEach((textAlignment) => {
+  ["left", "center", "right", "justify"].forEach((textAlignment) => {
     test(`should adjust the text alignment when textAlign prop is set to ${textAlignment}`, async ({
       mount,
       page,
@@ -341,9 +336,9 @@ test.describe("should check Typography component properties", () => {
         </Typography>
       );
 
-      const cyElement = await page.locator("h1");
+      const typographyElement = page.locator("h1");
 
-      await expect(cyElement).toHaveCSS("text-align", textAlignment);
+      await expect(typographyElement).toHaveCSS("text-align", textAlignment);
     });
   });
 
@@ -357,16 +352,19 @@ test.describe("should check Typography component properties", () => {
       </Typography>
     );
 
-    const cyElement = await page.locator("h1");
+    const typographyElement = page.locator("h1");
 
-    await expect(cyElement).toHaveText(testDataStandard);
-    await expect(cyElement).toHaveCSS("border", "0px none rgba(0, 0, 0, 0.9)");
-    await expect(cyElement).toHaveCSS("height", "1px");
-    await expect(cyElement).toHaveCSS("margin", "-1px");
-    await expect(cyElement).toHaveCSS("overflow", "hidden");
-    await expect(cyElement).toHaveCSS("padding", "0px");
-    await expect(cyElement).toHaveCSS("position", "absolute");
-    await expect(cyElement).toHaveCSS("width", "1px");
+    await expect(typographyElement).toHaveText(testDataStandard);
+    await expect(typographyElement).toHaveCSS(
+      "border",
+      "0px none rgba(0, 0, 0, 0.9)"
+    );
+    await expect(typographyElement).toHaveCSS("height", "1px");
+    await expect(typographyElement).toHaveCSS("margin", "-1px");
+    await expect(typographyElement).toHaveCSS("overflow", "hidden");
+    await expect(typographyElement).toHaveCSS("padding", "0px");
+    await expect(typographyElement).toHaveCSS("position", "absolute");
+    await expect(typographyElement).toHaveCSS("width", "1px");
   });
 });
 

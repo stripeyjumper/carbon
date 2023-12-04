@@ -1,14 +1,6 @@
 import React from "react";
 import Typography, { List, ListItem } from ".";
 
-export const Default = ({ ...props }) => {
-  return (
-    <Typography {...props} variant="b">
-      Some text
-    </Typography>
-  );
-};
-
 export const ListComponent = ({ ...props }) => {
   return (
     <List {...props}>
