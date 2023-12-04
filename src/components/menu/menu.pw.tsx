@@ -43,6 +43,7 @@ import {
   checkGoldenOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -1160,13 +1161,8 @@ test.describe("Prop tests for Menu component", () => {
     await page.setViewportSize({ width: 1200, height: 800 });
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await continuePressingTAB(page, 8);
     await expect(item).not.toBeFocused();
   });
@@ -1240,13 +1236,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     const fullScreenMenu1 = fullscreenMenu(page, 0).locator("span");
     await expect(fullScreenMenu1).toHaveAttribute("data-element", "close");
     await expect(fullScreenMenu1).toBeVisible();
@@ -1266,13 +1257,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     const closeIcon = closeIconButton(page).first();
     await closeIcon.click();
     const fullScreenMenu1 = fullscreenMenu(page, 0).locator("span");
@@ -1292,13 +1278,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await page.keyboard.press("Tab");
     const closeIcon = closeIconButton(page).first();
     await expect(closeIcon).toHaveCSS(
@@ -1328,13 +1309,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await page.keyboard.press("Tab");
     const closeIcon = closeIconButton(page).first();
     await checkGoldenOutline(closeIcon);
@@ -1355,13 +1331,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await continuePressingTAB(page, 4);
     const fullMenuItem = fullscreenMenu(page, 3)
       .locator("li")
@@ -1399,13 +1370,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await continuePressingTAB(page, 5);
     await page.keyboard.press("Shift+Tab");
     const fullMenuItem = fullscreenMenu(page, 3)
@@ -1445,13 +1411,8 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await continuePressingTAB(page, 5);
     await expect(item).not.toBeFocused();
   });
@@ -1699,13 +1660,8 @@ test.describe("Event tests for Menu component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     const closeIcon = closeIconButton(page).first();
     await closeIcon.click();
     expect(callbackCount).toBe(1);
@@ -2229,13 +2185,8 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await checkAccessibility(page);
   });
 
@@ -2269,13 +2220,8 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
-    await expect(
-      getComponent(page, "menu-fullscreen")
-        .first()
-        .locator("a")
-        .first()
-        .locator("span")
-    ).toHaveText("Menu Item One");
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
     await continuePressingTAB(page, 5);
     await checkAccessibility(page);
   });
@@ -2291,13 +2237,8 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
 
         const item = menuItem(page).first();
         await item.click();
-        await expect(
-          getComponent(page, "menu-fullscreen")
-            .first()
-            .locator("a")
-            .first()
-            .locator("span")
-        ).toHaveText("Menu Item One");
+        const fullscreen = getComponent(page, "menu-fullscreen").first();
+        await waitForAnimationEnd(fullscreen);
         await checkAccessibility(page);
       });
     }
