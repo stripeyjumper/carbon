@@ -44,7 +44,7 @@ export const MenuComponent = (props: Partial<MenuProps> & MenuDividerProps) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
+              <MenuSegmentTitle text="segment title" />
               <MenuItem href="#">Item Submenu Two</MenuItem>
             </MenuItem>
           </Menu>
@@ -118,7 +118,7 @@ export const MenuComponentSearch = () => {
             <MenuItem submenu="Menu One">
               <MenuItem href="#">Item Submenu One</MenuItem>
               <MenuDivider size="large" />
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
+              <MenuSegmentTitle text="segment title" />
               <MenuItem variant="alternate">
                 <Search
                   placeholder="Dark variant"
@@ -284,7 +284,7 @@ export const MenuComponentItems = (
           onClick={() => {}}
         >
           <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuSegmentTitle>segment title</MenuSegmentTitle>
+          <MenuSegmentTitle text="segment title" />
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
@@ -480,7 +480,7 @@ export const MenuSegmentTitleComponent = (props: Partial<MenuTitleProps>) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle {...props}>segment title</MenuSegmentTitle>
+              <MenuSegmentTitle {...props} text="segment title" />
               <MenuItem href="#">Item Submenu Two</MenuItem>
             </MenuItem>
           </Menu>
@@ -529,7 +529,7 @@ export const MenuDividerComponent = (props: MenuDividerProps) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
+              <MenuSegmentTitle text="segment title" />
               <MenuItem href="#">Item Submenu Two</MenuItem>
             </MenuItem>
           </Menu>

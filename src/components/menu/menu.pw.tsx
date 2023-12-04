@@ -63,6 +63,7 @@ import {
   ClosedMenuFullScreenWithButtons,
   MenuDividerComponent,
   InGlobalHeaderStory,
+  SubMenuWithVeryLongLabel,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -519,18 +520,7 @@ test.describe("Prop tests for Menu component", () => {
     mount,
     page,
   }) => {
-    await mount(
-      <Box mb={150}>
-        <Menu menuType="white">
-          <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>
-    );
+    await mount(<SubMenuWithVeryLongLabel />);
 
     const subMenu = submenu(page).first();
     await subMenu.hover();
@@ -538,8 +528,8 @@ test.describe("Prop tests for Menu component", () => {
     const cssWidth = await subMenuBlock.evaluate((el) =>
       window.getComputedStyle(el).getPropertyValue("width")
     );
-    expect(parseInt(cssWidth)).toBeLessThanOrEqual(395);
-    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(385);
+    expect(parseInt(cssWidth)).toBeLessThanOrEqual(495);
+    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(485);
   });
 
   ([
@@ -1148,9 +1138,7 @@ test.describe("Prop tests for Menu component", () => {
                 <MenuItem href="#">
                   Item Submenu One Is A Very Long Submenu Item Indeed
                 </MenuItem>
-                <MenuSegmentTitle variant={variant}>
-                  Segment Title
-                </MenuSegmentTitle>
+                <MenuSegmentTitle variant={variant} text="Segment Title" />
               </MenuItem>
             </Menu>
           </Box>
@@ -1284,6 +1272,13 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
+    await expect(
+      getComponent(page, "menu-fullscreen")
+        .first()
+        .locator("a")
+        .first()
+        .locator("span")
+    ).toHaveText("Menu Item One");
     await page.keyboard.press("Tab");
     const closeIcon = closeIconButton(page).first();
     await expect(closeIcon).toHaveCSS(
@@ -1313,6 +1308,13 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
 
     const item = menuItem(page).first();
     await item.click();
+    await expect(
+      getComponent(page, "menu-fullscreen")
+        .first()
+        .locator("a")
+        .first()
+        .locator("span")
+    ).toHaveText("Menu Item One");
     await page.keyboard.press("Tab");
     const closeIcon = closeIconButton(page).first();
     await checkGoldenOutline(closeIcon);
@@ -1628,17 +1630,16 @@ test.describe("Event tests for Menu component", () => {
     let callbackCount = 0;
     await mount(
       <MenuComponentItems
-        onSubmenuOpen={() => {
+        onSubmenuClose={() => {
           callbackCount += 1;
         }}
-        submenu="Menu Item One"
+        submenu="Menu Item Three"
       />
     );
 
     const subMenu1 = submenu(page).first();
     await subMenu1.hover();
-    const subMenu2 = submenu(page).nth(1);
-    await subMenu2.hover();
+    await page.keyboard.press("Tab");
     expect(callbackCount).toBe(1);
   });
 
@@ -1741,7 +1742,6 @@ test.describe("Accessibility tests for Menu component", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
     await page.keyboard.press("Tab");
-    await page.keyboard.press("ArrowDown");
     await checkAccessibility(page);
   });
 
