@@ -569,3 +569,20 @@ export const InGlobalHeaderStory = () => {
     </GlobalHeader>
   );
 };
+
+export const SubMenuWithVeryLongLabel = (
+  props: Partial<MenuProps> & MenuDividerProps
+) => {
+  return (
+    <Box mb={150}>
+      <Menu menuType="white">
+        <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};

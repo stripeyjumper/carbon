@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-await-in-loop */
+/* eslint-disable @typescript-eslint/no-non-null-assertion, no-await-in-loop */
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import {
