@@ -211,7 +211,7 @@ test.describe("Check props for ProgressTracker component", () => {
   const getYValue = (locator: Locator) =>
     locator.evaluate((element) => element.getBoundingClientRect().y);
 
-  test(`should position current value label below tracker line when labelsPosition prop is "top"`, async ({
+  test(`should position current value label above tracker line when labelsPosition prop is "top"`, async ({
     mount,
     page,
   }) => {
