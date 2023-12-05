@@ -524,6 +524,22 @@ describe("NumeralDate", () => {
     });
   });
 
+  describe("isOptional", () => {
+    beforeAll(() => {
+      wrapper = mount(
+        <NumeralDate value={{ dd: "02", mm: "", yyyy: "" }} isOptional />
+      );
+    });
+
+    it("the isOptional prop is passed to the inputs", () => {
+      const inputs = wrapper.find("input");
+      inputs.forEach((input) => {
+        console.log(input.props());
+        expect(input.prop("isOptional")).toBe(true);
+      });
+    });
+  });
+
   describe("helpAriaLabel", () => {
     it("should set the aria-label on the Help component", () => {
       const text = "foo";

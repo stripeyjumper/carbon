@@ -229,6 +229,11 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
 
   invariant(hasCorrectDateFormat, incorrectDateFormatMessage);
 
+  invariant(
+    !(required && isOptional),
+    "an input cannot be set to both required and optional at the same time"
+  );
+
   useEffect(() => {
     const modeSwitchedMessage =
       "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
