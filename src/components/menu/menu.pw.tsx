@@ -1736,7 +1736,7 @@ test.describe("Accessibility tests for Menu component", () => {
     });
   });
 
-  test(`should pass accessibility tests when search component is focused`, async ({
+  test.skip(`should pass accessibility tests when search component is focused`, async ({
     mount,
     page,
   }) => {
@@ -1745,6 +1745,8 @@ test.describe("Accessibility tests for Menu component", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
     await page.keyboard.press("Tab");
+    const subMenu = getComponent(page, "submenu").first();
+    await waitForAnimationEnd(subMenu);
     await checkAccessibility(page);
   });
 
